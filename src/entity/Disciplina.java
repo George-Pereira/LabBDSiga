@@ -2,6 +2,7 @@ package entity;
 
 public class Disciplina 
 {
+	private String codigo;
 	private String nome;
 	private String sigla;
 	private String turno;

@@ -1,14 +1,20 @@
 html, body {
 	height: 90%;
 	font-family: Helvetica,Arial,sans-serif;
+	background-color: whitesmoke;
+	font-weight: bold;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  
 }
 
 ul {
   list-style-type: none;
   overflow: hidden;
   background-color: #333;
-  margin: auto;
-  width: 100%;
 }
 
 li {
@@ -23,8 +29,12 @@ li a, .dropbtn {
   text-decoration: none;
 }
 
-li a:hover, .dropdown:hover .dropbtn .active{
-  background-color: red;
+li a:hover, .dropdown:hover .dropbtn{
+  	background-color: red;
+}
+
+.active {
+ 	background-color: red;
 }
 
 li.dropdown {
@@ -61,7 +71,7 @@ li.dropdown {
 	background-color: #333;
 }
 
-.navBar{
-  top: 50%;
-  left: 50%;
+input {
+	margin:10px 20px;
+	padding: 5px 5px;
 }
