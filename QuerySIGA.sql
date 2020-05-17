@@ -14,8 +14,6 @@ drop table notas
 create table aluno (
 	ra varchar(13) primary key,
 	nome varchar(100))
-
-
 -- FORMATO DO CODIGO: XXXX-XXX
 -- SIGLA: SSSXXX (S - caractere) - TEMOS QUE PERGUNTAR AS SIGLAS DAS MATERIAS.
 -- TURNO: M, N, T
@@ -79,10 +77,10 @@ insert into avaliacao values
 ('P3')
 
 -- PROCEDURE PARA INSERIR NOTA COM O PESO
-create procedure sp_insereNota (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @codigo_avaliacao int, @nota decimal(4,2))
+create procedure sp_insereNota (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @codigo_avaliacao int, @nota decimal(4,2), @peso decimal(4,2))
 AS
 BEGIN
-	IF (@ra_aluno IS NULL OR @codigo_disciplina IS NULL OR @codigo_avaliacao IS NULL OR @nota IS NULL)
+	IF (@ra_aluno IS NULL OR @codigo_disciplina IS NULL OR @codigo_avaliacao IS NULL OR @nota IS NULL OR @peso IS NULL)
 	BEGIN
 		RAISERROR('Valores Inválidos!',16,1)
 	END
@@ -110,11 +108,25 @@ BEGIN
 		INSERT INTO faltas VALUES (@ra_aluno, @codigo_disciplina, @dia, @presencas)
 	END
 END
-
-
-insert into aluno values
-('1110481812042', 'Fellipe Alves')
-
-select * from notas
-
-delete notas
+CREATE FUNCTION fn_listachamada(@cod_disc VARCHAR(8))
+RETURNS @tabela TABLE(
+ra_aluno		VARCHAR(13),
+nome_aluno		VARCHAR(100)
+)
+AS
+BEGIN
+	DECLARE @pos INT
+	INSERT @tabela(ra_aluno, nome_aluno)
+		SELECT a.ra, a.nome FROM aluno a INNER JOIN faltas flt ON a.ra = flt.ra_aluno INNER JOIN disciplina disc ON flt.codigo_disciplina = disc.codigo WHERE disc.codigo = @cod_disc Order by a.nome
+	RETURN
+END
+SELECT * FROM fn_listachamada('4203-010')
+/*CREATE FUNCTION fn_listaNotas(@cod_disc VARCHAR(8))
+RETURNS @tabela TABLE(
+ra_aluno		VARCHAR(13),
+nome_aluno		VARCHAR(100),
+N1		DECIMAL(4,2),
+N2		DECIMAL(4,2),
+N3		DECIMAL(4,2)
+)
+DECLARE	@*/
