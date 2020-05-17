@@ -6,7 +6,6 @@ public class Notas {
 	private String codigo_disciplina;
 	private int codigo_avaliacao;
 	private double nota;
-	private double peso;
 	
 	public String getRa_aluno() {
 		return ra_aluno;

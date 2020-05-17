@@ -40,7 +40,7 @@ create table faltas (
 	codigo_disciplina varchar(8),
 	dia Date,
 	presencas int,
-	primary key(ra_aluno,codigo_disciplina, dia),
+	CONSTRAINT pk_FALTA primary key(ra_aluno,codigo_disciplina, dia),
 	foreign key (ra_aluno) references aluno(ra),
 	foreign key (codigo_disciplina) references disciplina(codigo))
 
@@ -50,7 +50,7 @@ create table notas (
 	codigo_disciplina varchar(8),
 	codigo_avaliacao int,
 	nota decimal (4,2),
-	primary key(ra_aluno, codigo_disciplina, codigo_avaliacao),
+	CONSTRAINT pk_FALTA primary key(ra_aluno, codigo_disciplina, codigo_avaliacao),
 	foreign key (ra_aluno) references aluno(ra),
 	foreign key (codigo_disciplina) references disciplina(codigo),
 	foreign key (codigo_avaliacao) references avaliacao(codigo))

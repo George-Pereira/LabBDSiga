@@ -24,14 +24,14 @@ public class ServletNotas extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("aaa");
 		Notas nota = new Notas();
+		DaoNotas dao = new DaoNotas();
 		nota.setRa_aluno(request.getParameter("ra_aluno"));
 		nota.setCodigo_disciplina(request.getParameter("codigo_disciplina"));
-		nota.setCodigo_avaliacao(Integer.parseInt(request.getParameter("codigo_avaliacao")));
-		nota.setNota(Double.parseDouble(request.getAttribute("codigo_avaliacao").toString()));
+		System.out.println(request.getParameter("codigo_avaliacao"));
+		nota.setCodigo_avaliacao(1);
+		nota.setNota(7.2);
 		
-		DaoNotas dao = new DaoNotas();
 		try {
 			dao.inserirNota(nota);
 		} catch (SQLException e) {
