@@ -4,6 +4,8 @@ public class Aluno {
 	private String ra;
 	private String nome;
 	
+	public Aluno() {
+	}
 	public String getRa() {
 		return ra;
 	}

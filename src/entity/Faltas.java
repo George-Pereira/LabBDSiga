@@ -1,12 +1,16 @@
 package entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class Faltas {
 	private String ra_aluno;
 	private String codigo_disciplina;
 	private Date dia;
 	private int presencas;
+	
+	public Faltas() 
+	{
+	}
 	
 	public String getRa_aluno() {
 		return ra_aluno;
