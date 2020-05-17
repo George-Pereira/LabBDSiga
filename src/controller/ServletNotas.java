@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DaoNotas;
+import dao.IntDaoNotas;
 import entity.Notas;
 
 /**
@@ -25,13 +26,12 @@ public class ServletNotas extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Notas nota = new Notas();
-		DaoNotas dao = new DaoNotas();
+		IntDaoNotas dao = new DaoNotas();
 		nota.setRa_aluno(request.getParameter("ra_aluno"));
 		nota.setCodigo_disciplina(request.getParameter("codigo_disciplina"));
-		System.out.println(request.getParameter("codigo_avaliacao"));
-		nota.setCodigo_avaliacao(1);
+		int cod_av = Integer.valueOf(request.getParameter("codigo_avaliacao"));
+		nota.setCodigo_avaliacao(cod_av);
 		nota.setNota(7.2);
-		
 		try {
 			dao.inserirNota(nota);
 		} catch (SQLException e) {

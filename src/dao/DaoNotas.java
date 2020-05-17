@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import entity.Notas;
 
-public class DaoNotas {
+public class DaoNotas implements IntDaoNotas {
 
 	private Connection c;
 	

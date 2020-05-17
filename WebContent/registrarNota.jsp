@@ -28,13 +28,15 @@
 	<div align="center" style="padding:50px;">
 		<form action="insereNota" method="post">
 			  <label for="ra_aluno">RA do Aluno </label>
-			  <input type="text" id="ra_aluno"><br>
+			  <input type="text" id="ra_aluno" name="ra_aluno"><br>
 			  <label for="codigo_disciplina">Código da Disciplina </label>
-			  <input type="text" id="codigo_disciplina"><br>
+			  <input type="text" id="codigo_disciplina" name="codigo_disciplina"><br>
 			  <label for="codigo_avaliacao">Código da Avaliação </label>
-			  <input type="number" id="codigo_avaliacao" name="codigo_avaliacao" min="1" max="10"><br>
+			  <input type="number" id="codigo_avaliacao" name="codigo_avaliacao" min="1" max="3"><br>
 			  <label for="nota">Nota </label>
-			  <input type="text" id="nota"><br>
+			  <input type="text" id="nota" name="nota"><br>
+			  <label for="peso">Peso </label>
+			  <input type="text" id="peso" name="peso"><br>
 			  <input type="submit" value="Registrar">
 		</form> 
 	</div>
