@@ -1,3 +1,5 @@
+<%@page import="dao.DaoAvaliacao"%>
+<%@page import="entity.Avaliacao"%>
 <%@page import="dao.DaoAluno"%>
 <%@page import="entity.Aluno"%>
 <%@page import="dao.DaoDisciplina"%>
@@ -36,7 +38,7 @@
 	<div align="center" style="padding:50px;">
 		<form action="insereNota" method="post">
 			  <label for="ra_aluno">RA do Aluno </label>
-			  <select id="ra_aluno" name="ra_aluno" required>
+			  <select id="ra_aluno" name="ra_aluno" required style="height: 25px; width: 250px;">
 				  <%
 				  	List<Aluno> listaAlunos = new LinkedList<Aluno>();
 					DaoAluno dao = new DaoAluno();
@@ -46,12 +48,10 @@
 							<option value="<%=aluno.getRa() %>"><%=aluno.getNome()%></option>
 						<%
 					}
-				  
-				  
 				  %>
 			  </select><br><br>
 			  <label for="codigo_disciplina">Código da Disciplina </label>
-			  <select id="codigo_disciplina" name="codigo_disciplina" required>
+			  <select id="codigo_disciplina" name="codigo_disciplina" required style="height: 25px; width: 350px;">
 				  <%
 				  	List<Disciplina> listaDisciplinas = new LinkedList<Disciplina>();
 					DaoDisciplina daoDisc = new DaoDisciplina();
@@ -61,19 +61,26 @@
 							<option value="<%=disciplina.getCodigo() %>"><%=disciplina.toString()%></option>
 						<%
 					}
-				  
-				  
 				  %>
 			  </select><br><br>
 			  <label for="codigo_avaliacao">Código da Avaliação </label>
-			  <input type="number" id="codigo_avaliacao" name="codigo_avaliacao" min="1" max="3" required><br>
+			  <select id="codigo_avaliacao" name="codigo_avaliacao" required style="height: 25px; width: 50px;">
+				  <%
+				  	List<Avaliacao> listaAvaliacao = new LinkedList<Avaliacao>();
+					DaoAvaliacao daoAvaliacao = new DaoAvaliacao();
+					listaAvaliacao = daoAvaliacao.getListaAvaliacao();
+					for (Avaliacao avaliacao : listaAvaliacao) {
+						%>
+							<option value="<%=avaliacao.getCodigo() %>"><%=avaliacao.getTipo()%></option>
+						<%
+					}
+				  %>
+			  </select><br><br>
 			  <label for="nota">Nota </label>
-			  <input type="text" id="nota" name="nota" required><br>
+			  <input type="number" autocomplete="off" step="any" id="nota" min="0" name="nota" required style="height: 15px; width: 50px;"><br>
 			  <label for="peso">Peso </label>
-			  <input type="text" id="peso" name="peso" required><br>
+			  <input type="number" autocomplete="off" step="any" id="peso" min="0" name="peso" required style="height: 15px; width: 50px;"><br>
 			  <input type="submit" value="Registrar">
-			  <input type="submit" value="Editar">
-			  
 		</form> 
 	</div>
 	

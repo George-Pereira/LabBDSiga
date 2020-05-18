@@ -31,7 +31,7 @@ public class ServletNotas extends HttpServlet {
 		Double valor_nota = Double.valueOf(request.getParameter("nota"));
 		nota.setNota(valor_nota);
 		Double valor_peso = Double.valueOf(request.getParameter("peso"));
-		nota.setNota(valor_peso);
+		nota.setPeso(valor_peso);
 		insereNota(nota);
 		
 		PrintWriter out = response.getWriter();
