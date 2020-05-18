@@ -14,6 +14,8 @@ drop table notas
 create table aluno (
 	ra varchar(13) primary key,
 	nome varchar(100))
+
+
 -- FORMATO DO CODIGO: XXXX-XXX
 -- SIGLA: SSSXXX (S - caractere) - TEMOS QUE PERGUNTAR AS SIGLAS DAS MATERIAS.
 -- TURNO: M, N, T
@@ -50,7 +52,8 @@ create table notas (
 	codigo_disciplina varchar(8),
 	codigo_avaliacao int,
 	nota decimal (4,2),
-	CONSTRAINT pk_NOTAS primary key(ra_aluno, codigo_disciplina, codigo_avaliacao),
+	peso decimal (4,2),
+	CONSTRAINT pk_NOTA primary key(ra_aluno, codigo_disciplina, codigo_avaliacao),
 	foreign key (ra_aluno) references aluno(ra),
 	foreign key (codigo_disciplina) references disciplina(codigo),
 	foreign key (codigo_avaliacao) references avaliacao(codigo))
@@ -86,7 +89,7 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		INSERT INTO notas VALUES (@ra_aluno, @codigo_disciplina, @codigo_avaliacao, @nota)
+		INSERT INTO notas VALUES (@ra_aluno, @codigo_disciplina, @codigo_avaliacao, @nota, @peso)
 	END
 END
 
@@ -108,11 +111,12 @@ BEGIN
 		INSERT INTO faltas VALUES (@ra_aluno, @codigo_disciplina, @dia, @presencas)
 	END
 END
+
+
 CREATE FUNCTION fn_listachamada(@cod_disc VARCHAR(8))
 RETURNS @tabela TABLE(
 ra_aluno		VARCHAR(13),
-nome_aluno		VARCHAR(100)
-)
+nome_aluno		VARCHAR(100))
 AS
 BEGIN
 	DECLARE @pos INT
@@ -130,3 +134,18 @@ N2		DECIMAL(4,2),
 N3		DECIMAL(4,2)
 )
 DECLARE	@*/
+
+
+
+
+
+
+
+--------- TESTES ------------
+
+insert into aluno values
+('1110481812042', 'Fellipe Alves')
+
+select * from notas
+
+delete notas

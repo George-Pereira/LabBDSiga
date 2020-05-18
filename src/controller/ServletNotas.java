@@ -26,18 +26,24 @@ public class ServletNotas extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Notas nota = new Notas();
-		IntDaoNotas dao = new DaoNotas();
 		nota.setRa_aluno(request.getParameter("ra_aluno"));
 		nota.setCodigo_disciplina(request.getParameter("codigo_disciplina"));
 		int cod_av = Integer.valueOf(request.getParameter("codigo_avaliacao"));
 		nota.setCodigo_avaliacao(cod_av);
-		nota.setNota(7.2);
+		Double valor_nota = Double.valueOf(request.getParameter("nota"));
+		nota.setNota(valor_nota);
+		Double valor_peso = Double.valueOf(request.getParameter("peso"));
+		nota.setNota(valor_peso);
+		insereNota(nota);
+	}
+	
+	private void insereNota(Notas nota) {
+		IntDaoNotas dao = new DaoNotas();
 		try {
 			dao.inserirNota(nota);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 }

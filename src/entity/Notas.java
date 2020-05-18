@@ -6,6 +6,7 @@ public class Notas {
 	private String codigo_disciplina;
 	private int codigo_avaliacao;
 	private double nota;
+	private double peso;
 	
 	public String getRa_aluno() {
 		return ra_aluno;
@@ -30,5 +31,11 @@ public class Notas {
 	}
 	public void setNota(double nota) {
 		this.nota = nota;
+	}
+	public double getPeso() {
+		return peso;
+	}
+	public void setPeso(double peso) {
+		this.peso = peso;
 	}
 }
