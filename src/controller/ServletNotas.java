@@ -3,11 +3,13 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DaoNotas;
 import dao.IntDaoNotas;
@@ -26,6 +28,8 @@ public class ServletNotas extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Notas nota = new Notas();
+		RequestDispatcher conf;
+		HttpSession sessao = request.getSession();
 		nota.setRa_aluno(request.getParameter("ra_aluno"));
 		nota.setCodigo_disciplina(request.getParameter("codigo_disciplina"));
 		int cod_av = Integer.valueOf(request.getParameter("codigo_avaliacao"));
@@ -35,6 +39,8 @@ public class ServletNotas extends HttpServlet {
 		Double valor_peso = Double.valueOf(request.getParameter("peso"));
 		nota.setNota(valor_peso);
 		insereNota(nota);
+		conf = request.getRequestDispatcher("/validacao.jsp");
+		conf.forward(request, response);
 	}
 	
 	private void insereNota(Notas nota) {
