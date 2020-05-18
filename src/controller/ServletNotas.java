@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -29,7 +30,9 @@ public class ServletNotas extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Notas nota = new Notas();
 		RequestDispatcher conf;
-		HttpSession sessao = request.getSession();
+		//HttpSession sessao = request.getSession();
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html");
 		nota.setRa_aluno(request.getParameter("ra_aluno"));
 		nota.setCodigo_disciplina(request.getParameter("codigo_disciplina"));
 		int cod_av = Integer.valueOf(request.getParameter("codigo_avaliacao"));
@@ -39,8 +42,11 @@ public class ServletNotas extends HttpServlet {
 		Double valor_peso = Double.valueOf(request.getParameter("peso"));
 		nota.setNota(valor_peso);
 		insereNota(nota);
-		conf = request.getRequestDispatcher("/validacao.jsp");
-		conf.forward(request, response);
+		out.println("<script type=\"text/javascript\">");
+		out.println("alert('Nota inserida com sucesso!!!');");
+		out.println("</script>");
+		//conf = request.getRequestDispatcher("/registrarNota.jsp");
+		//conf.forward(request, response);
 	}
 	
 	private void insereNota(Notas nota) {
