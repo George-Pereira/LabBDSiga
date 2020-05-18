@@ -27,19 +27,4 @@ public class DaoNotas implements IntDaoNotas {
 		cs.close();
 	}
 	
-	public static void main(String[] args) {
-		DaoNotas dao = new DaoNotas();
-		Notas nota = new Notas();
-		nota.setRa_aluno("1110481812042");
-		nota.setCodigo_disciplina("4203-010");
-		nota.setCodigo_avaliacao(2);
-		nota.setNota(7.2);
-		nota.setPeso(0.35);
-		try {
-			dao.inserirNota(nota);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
 }

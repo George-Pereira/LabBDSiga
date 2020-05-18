@@ -51,7 +51,7 @@
 				  %>
 			  </select><br><br>
 			  <label for="codigo_disciplina">Código da Disciplina </label>
-			  <select id="codigo_disciplina" name="codigo_disciplina" required style="height: 25px; width: 350px;">
+			  <select id="codigo_disciplina" name="codigo_disciplina" required style="height: 25px; width: 310px;">
 				  <%
 				  	List<Disciplina> listaDisciplinas = new LinkedList<Disciplina>();
 					DaoDisciplina daoDisc = new DaoDisciplina();

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class DaoDisciplina implements IntDaoDisciplina {
 		}
 		rs.close();
 		stmt.close();
+		Collections.sort(listaDisciplinas);
 		return listaDisciplinas;
 	}
 }

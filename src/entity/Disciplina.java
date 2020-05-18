@@ -1,6 +1,6 @@
 package entity;
 
-public class Disciplina {
+public class Disciplina implements Comparable<Disciplina> {
 	
 	private String codigo;
 	private String nome;
@@ -51,5 +51,10 @@ public class Disciplina {
 	@Override
 	public String toString() {
 		return this.nome+" - "+this.turno;
+	}
+	
+	@Override
+	public int compareTo(Disciplina o) {
+		return this.toString().compareTo(o.toString());
 	}
 }
