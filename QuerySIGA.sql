@@ -79,6 +79,16 @@ insert into avaliacao values
 ('P2'),
 ('P3')
 
+-- ALUNOS
+insert into aluno values
+('1110481812042', 'Fellipe Alves Andrade'),
+('1110481812043', 'Fernando George Pereira'),
+('1110481812034', 'Rafael Antonio Ferreira Borges'),
+('1110481812022', 'João Vitor Sardinha de Arruda'),
+('1110481812012', 'José Luis dos Santos'),
+('1110481812033', 'Jonathas Moreira de Amorim Lopes'),
+('1110481812031', 'Leandro Colevati dos Santos')
+
 -- PROCEDURE PARA INSERIR NOTA COM O PESO
 create procedure sp_insereNota (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @codigo_avaliacao int, @nota decimal(4,2), @peso decimal(4,2))
 AS
@@ -135,17 +145,10 @@ N3		DECIMAL(4,2)
 )
 DECLARE	@*/
 
-
-
-
-
-
-
 --------- TESTES ------------
 
-insert into aluno values
-('1110481812042', 'Fellipe Alves')
-
-select * from notas
+delete aluno
+select * from aluno
 
 delete notas
+
