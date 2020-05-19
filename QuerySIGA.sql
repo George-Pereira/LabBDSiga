@@ -32,7 +32,7 @@ create table avaliacao (
 	tipo char(2))
 	
 	
--- MATRICULA DO ALUNO EM UMA MATEIRA
+-- MATRICULA DO ALUNO EM UMA MATERIA
 create table matricula (
 	ra_aluno varchar(13),
 	codigo_disciplina char(8),
