@@ -1,5 +1,8 @@
+<%@page import="dao.IntDaoAluno"%>
 <%@page import="entity.Disciplina"%>
+<%@page import="entity.Aluno"%>
 <%@page import="dao.DaoDisciplina"%>
+<%@page import="dao.DaoAluno"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="java.util.List"%>
 <%@page import="dao.IntDaoDisciplina" %>
@@ -32,7 +35,7 @@
 	<div align="center" style="padding:50px;">
 		<form action="inserirFaltas" method="post">
 		<label for="disciplina">Disciplina</label>
-		<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;">
+		<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
 		<% 
 			List <Disciplina> listDisc = new LinkedList<Disciplina>();
 			IntDaoDisciplina dao = new DaoDisciplina();
@@ -47,8 +50,24 @@
 		</select><br>
 	</div>
 	<div>
-		<table>
-			<
+		<table width="60%">
+			
+				<thead>
+					<tr>
+						<th>RA</th>
+						<th>Nome</th>
+						<th>Faltas</th>
+					</tr>	
+				</thead>
+				<tbody>
+						<%	IntDaoAluno al = new DaoAluno();
+							List<Aluno> chamada = new LinkedList<Aluno>();
+							chamada = al.getListaAlunos("4203-010");
+							for(Aluno a : chamada)
+							{ %>
+							  <tr><%a.getRa();%></tr>	
+						  <%}%>
+				</tbody>
 		</table>
 	</div>
 </body>
