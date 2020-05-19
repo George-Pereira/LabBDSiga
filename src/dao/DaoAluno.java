@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,5 +37,31 @@ public class DaoAluno implements IntDaoAluno {
 		Collections.sort(listaAlunos);
 		return listaAlunos;
 	}
-
+	public List<Aluno> listaDisciplina(String cod_disc)
+	{
+		List<Aluno> chamada = new LinkedList<Aluno>();
+		String sql = "SELECT ra, nome FROM aluno INNER JOIN faltas ON aluno.ra = faltas.ra_aluno INNER JOIN disciplina ON faltas.codigo_disciplina WHERE disciplina.codigo = ?";
+		PreparedStatement state;
+		try 
+		{
+			state = c.prepareStatement(sql);
+			state.setString(1, cod_disc);
+			ResultSet result = state.executeQuery();
+			while(result.next()) 
+			{
+				Aluno novo = new Aluno();
+				novo.setRa(result.getString("ra"));
+				novo.setNome(result.getString("nome"));
+				chamada.add(novo);
+			}
+			result.close();
+			state.close();
+			c.close();
+		}
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		return chamada;
+	}
 }

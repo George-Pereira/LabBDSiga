@@ -2,9 +2,14 @@ package dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import entity.Aluno;
 import entity.Faltas;
 
 public class DaoFaltas 

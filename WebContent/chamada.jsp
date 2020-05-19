@@ -1,3 +1,8 @@
+<%@page import="entity.Disciplina"%>
+<%@page import="dao.DaoDisciplina"%>
+<%@page import="java.util.LinkedList"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.IntDaoDisciplina" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -22,10 +27,29 @@
 		      <a class="active" href="./gerarFaltas.jsp">Gerar Faltas</a>
 		    </div>
   		  </li>
-		  
 		</ul>
 	</div>
-	
-	
+	<div align="center" style="padding:50px;">
+		<form action="inserirFaltas" method="post">
+		<label for="disciplina">Disciplina</label>
+		<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;">
+		<% 
+			List <Disciplina> listDisc = new LinkedList<Disciplina>();
+			IntDaoDisciplina dao = new DaoDisciplina();
+			listDisc = dao.getListaDisciplinas();
+			for(Disciplina disc : listDisc)
+			{
+		%>
+			<option value="<%=disc.getCodigo() %>"><%=disc.toString() %></option>
+		<%
+			}
+		%>
+		</select><br>
+	</div>
+	<div>
+		<table>
+			<
+		</table>
+	</div>
 </body>
 </html>
