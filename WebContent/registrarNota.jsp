@@ -17,6 +17,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="./style.css">
 	<title>Siga - Registrar Nota</title>
+	
+	
 </head>
 <body>
 	<div class="navBar">
@@ -37,21 +39,9 @@
 	
 	<div align="center" style="padding:50px;">
 		<form action="insereNota" method="post">
-			  <label for="ra_aluno">Nome do Aluno </label>
-			  <select id="ra_aluno" name="ra_aluno" required style="height: 25px; width: 250px;">
-				  <%
-				  	List<Aluno> listaAlunos = new LinkedList<Aluno>();
-					DaoAluno dao = new DaoAluno();
-					listaAlunos = dao.getListaAlunos();
-					for (Aluno aluno : listaAlunos) {
-						%>
-							<option value="<%=aluno.getRa() %>"><%=aluno.getNome()%></option>
-						<%
-					}
-				  %>
-			  </select><br><br>
-			  <label for="codigo_disciplina">Código da Disciplina </label>
-			  <select id="codigo_disciplina" name="codigo_disciplina" required style="height: 25px; width: 310px;">
+			  <label for="codigo_disciplina">Disciplina </label>
+			  <select id="codigo_disciplina" onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)" name="codigo_disciplina" required style="height: 25px; width: 310px;">
+			  	  <option>Selecione uma disciplina</option>
 				  <%
 				  	List<Disciplina> listaDisciplinas = new LinkedList<Disciplina>();
 					DaoDisciplina daoDisc = new DaoDisciplina();
@@ -63,26 +53,44 @@
 					}
 				  %>
 			  </select><br><br>
-			  <label for="codigo_avaliacao">Código da Avaliação </label>
-			  <select id="codigo_avaliacao" name="codigo_avaliacao" required style="height: 25px; width: 50px;">
-				  <%
-				  	List<Avaliacao> listaAvaliacao = new LinkedList<Avaliacao>();
-					DaoAvaliacao daoAvaliacao = new DaoAvaliacao();
-					listaAvaliacao = daoAvaliacao.getListaAvaliacao();
-					for (Avaliacao avaliacao : listaAvaliacao) {
-						%>
-							<option value="<%=avaliacao.getCodigo() %>"><%=avaliacao.getTipo()%></option>
-						<%
-					}
-				  %>
-			  </select><br><br>
-			  <label for="nota">Nota </label>
-			  <input type="number" autocomplete="off" step="any" id="nota" min="0" name="nota" required style="height: 15px; width: 50px;"><br>
-			  <label for="peso">Peso </label>
-			  <input type="number" autocomplete="off" step="any" id="peso" min="0" name="peso" required style="height: 15px; width: 50px;"><br>
-			  <input type="submit" value="Registrar">
+			  <div style="display: none;" id="campos">
+				  <label for="ra_aluno">Nome do Aluno </label>
+				  <select id="ra_aluno" name="ra_aluno" required style="height: 25px; width: 250px;">
+					  <%
+					  	List<Aluno> listaAlunos = new LinkedList<Aluno>();
+						DaoAluno dao = new DaoAluno();
+						listaAlunos = dao.getListaAlunos();
+						for (Aluno aluno : listaAlunos) {
+							%>
+								<option value="<%=aluno.getRa() %>"><%=aluno.getNome()%></option>
+							<%
+						}
+					  %>
+				  </select><br><br>
+				  <label for="codigo_avaliacao">Código da Avaliação </label>
+				  <select id="codigo_avaliacao" name="codigo_avaliacao" required style="height: 25px; width: 50px;">
+					  <%
+					  	List<Avaliacao> listaAvaliacao = new LinkedList<Avaliacao>();
+						DaoAvaliacao daoAvaliacao = new DaoAvaliacao();
+						listaAvaliacao = daoAvaliacao.getListaAvaliacao();
+						for (Avaliacao avaliacao : listaAvaliacao) {
+							%>
+								<option value="<%=avaliacao.getCodigo() %>"><%=avaliacao.getTipo()%></option>
+							<%
+						}
+					  %>
+				  </select><br><br>
+				  <label for="nota">Nota </label>
+				  <input type="number" autocomplete="off" step="any" id="nota" min="0" name="nota" required style="height: 15px; width: 50px;"><br>
+				  <label for="peso">Peso </label>
+				  <input type="number" autocomplete="off" step="any" id="peso" min="0" name="peso" required style="height: 15px; width: 50px;"><br>
+				  <input type="submit" value="Registrar">
+			</div>
 		</form> 
 	</div>
 	
+	
+	
+	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>
