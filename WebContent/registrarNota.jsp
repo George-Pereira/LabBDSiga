@@ -37,7 +37,7 @@
 	
 	<div align="center" style="padding:50px;">
 		<form action="insereNota" method="post">
-			  <label for="ra_aluno">RA do Aluno </label>
+			  <label for="ra_aluno">Nome do Aluno </label>
 			  <select id="ra_aluno" name="ra_aluno" required style="height: 25px; width: 250px;">
 				  <%
 				  	List<Aluno> listaAlunos = new LinkedList<Aluno>();
