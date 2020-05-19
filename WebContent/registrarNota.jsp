@@ -59,7 +59,7 @@
 					  <%
 					  	List<Aluno> listaAlunos = new LinkedList<Aluno>();
 						DaoAluno dao = new DaoAluno();
-						listaAlunos = dao.getListaAlunos();
+						listaAlunos = dao.getTodosAlunos();
 						for (Aluno aluno : listaAlunos) {
 							%>
 								<option value="<%=aluno.getRa() %>"><%=aluno.getNome()%></option>
