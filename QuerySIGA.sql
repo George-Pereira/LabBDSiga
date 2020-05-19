@@ -30,6 +30,15 @@ create table disciplina (
 create table avaliacao (
 	codigo int identity primary key,
 	tipo char(2))
+	
+	
+-- MATRICULA DO ALUNO EM UMA MATEIRA
+create table matricula (
+	ra_aluno varchar(13),
+	codigo_disciplina char(8),
+	CONSTRAINT pk_MATRICULA primary key (ra_aluno, codigo_disciplina),
+	foreign key(ra_aluno) references aluno(ra),
+	foreign key(codigo_disciplina) references disciplina(codigo))
 
 -- PRESENCAS: 0 para nenhuma FALTA
 --			  1 para UMA falta na aula
