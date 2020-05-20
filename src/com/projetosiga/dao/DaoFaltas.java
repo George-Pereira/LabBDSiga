@@ -1,4 +1,4 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import entity.Aluno;
-import entity.Faltas;
+import com.projetosiga.entity.Aluno;
+import com.projetosiga.entity.Faltas;
 
 public class DaoFaltas 
 {

@@ -1,4 +1,4 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -7,8 +7,8 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import entity.Aluno;
-import entity.Avaliacao;
+import com.projetosiga.entity.Aluno;
+import com.projetosiga.entity.Avaliacao;
 
 public class DaoAvaliacao implements IntDaoAvaliacao {
 

@@ -1,9 +1,9 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import entity.Avaliacao;
+import com.projetosiga.entity.Avaliacao;
 
 public interface IntDaoAvaliacao {
 

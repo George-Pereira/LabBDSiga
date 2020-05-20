@@ -1,8 +1,8 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.util.List;
 
-import entity.Aluno;
+import com.projetosiga.entity.Aluno;
 
 public interface IntDaoAluno {
 

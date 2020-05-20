@@ -1,4 +1,4 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-import entity.Disciplina;
+import com.projetosiga.entity.Disciplina;
 
 public class DaoDisciplina implements IntDaoDisciplina {
 

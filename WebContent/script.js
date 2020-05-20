@@ -1,10 +1,15 @@
 function listaAlunosporDisciplina(cod_disciplina) {
 	document.getElementById('campos').style.display = 'block';
-	var dao = Java.type("/java_resources/src/dao.DaoAluno");
-	var aluno = Java.type("/src/entity.Aluno");
-	const list = new LinkedList();
-	list = dao.getListaAlunos(cod_disciplina);
-	while (list.next) {
-		console.log(list.get(1))
-	}
+	console.log(cod_disciplina);
+	var cmpname= Packages.com.projetosiga.dao.DaoAluno.getListaAlunos(cod_disciplina);
 }
+
+function tdGanhaFoco (num) {
+	document.getElementById('linha'+num).style.backgroundColor = "lightblue";
+}
+
+function tdPerdeFoco (num) {
+	document.getElementById('linha'+num).style.backgroundColor = "white";
+}
+
+

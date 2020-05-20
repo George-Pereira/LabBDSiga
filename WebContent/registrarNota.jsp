@@ -1,10 +1,10 @@
-<%@page import="dao.DaoAvaliacao"%>
-<%@page import="entity.Avaliacao"%>
-<%@page import="dao.DaoAluno"%>
-<%@page import="entity.Aluno"%>
-<%@page import="dao.DaoDisciplina"%>
+<%@page import="com.projetosiga.dao.DaoAvaliacao"%>
+<%@page import="com.projetosiga.entity.Avaliacao"%>
+<%@page import="com.projetosiga.dao.DaoAluno"%>
+<%@page import="com.projetosiga.entity.Aluno"%>
+<%@page import="com.projetosiga.dao.DaoDisciplina"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="entity.Disciplina"%>
+<%@page import="com.projetosiga.entity.Disciplina"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import="java.sql.*" %>
@@ -17,8 +17,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" type="text/css" href="./style.css">
 	<title>Siga - Registrar Nota</title>
-	
-	
 </head>
 <body>
 	<div class="navBar">
@@ -90,7 +88,7 @@
 	</div>
 	
 	
-	
+	<script src="https://code.jquery.com/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package controller;
+package com.projetosiga.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DaoNotas;
-import dao.IntDaoNotas;
-import entity.Notas;
+import com.projetosiga.dao.DaoNotas;
+import com.projetosiga.dao.IntDaoNotas;
+import com.projetosiga.entity.Notas;
 
 @WebServlet("/insereNota")
 public class ServletNotas extends HttpServlet {

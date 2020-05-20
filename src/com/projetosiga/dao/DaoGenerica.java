@@ -1,4 +1,4 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

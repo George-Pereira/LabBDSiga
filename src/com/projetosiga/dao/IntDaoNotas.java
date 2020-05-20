@@ -1,8 +1,8 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.SQLException;
 
-import entity.Notas;
+import com.projetosiga.entity.Notas;
 
 public interface IntDaoNotas {
 

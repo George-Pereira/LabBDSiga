@@ -1,4 +1,4 @@
-package entity;
+package com.projetosiga.entity;
 
 import java.util.Date;
 

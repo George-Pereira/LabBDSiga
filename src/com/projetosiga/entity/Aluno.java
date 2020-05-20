@@ -1,4 +1,4 @@
-package entity;
+package com.projetosiga.entity;
 
 public class Aluno implements Comparable<Aluno>{
 	private String ra;
