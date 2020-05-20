@@ -1,10 +1,10 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import entity.Notas;
+import com.projetosiga.entity.Notas;
 
 public class DaoNotas implements IntDaoNotas {
 

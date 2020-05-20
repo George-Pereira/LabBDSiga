@@ -1,9 +1,9 @@
-package dao;
+package com.projetosiga.dao;
 
 import java.sql.SQLException;
 import java.util.List;
 
-import entity.Disciplina;
+import com.projetosiga.entity.Disciplina;
 
 public interface IntDaoDisciplina {
 
