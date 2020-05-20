@@ -34,7 +34,7 @@
   		  </li>
 		</ul>
 	</div>
-	<form action="insereFaltas" method="post">
+	<form action="chamada" method="post">
 		<div align="center" style="padding:50px;">
 			<label for="disciplina">Disciplina</label>
 			<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
@@ -56,50 +56,16 @@
 			cal.setTime(hoje);
 			int ano = cal.get(Calendar.YEAR);
 			String mes = String.valueOf(cal.get(Calendar.MONTH) + 1);
-			if (mes.length() < 2 ) 
-			{
+			if (mes.length() < 2 ) {
 				mes = "0"+mes;
 			}
 			int dia = cal.get(Calendar.DAY_OF_MONTH);
 			%>
 			<label for="data">Data</label>
 			<input id="data" name="data" type="date" value="<%=ano %>-<%=mes %>-<%=dia%>">
-			<button onclick="carregalista()"/>
-		</div>
-		<div align="center">
-			<table width="60%">
-				<thead>
-					<tr align="center" style="padding:50px">
-						<th>RA</th>
-						<th>Nome</th>
-						<th>Faltas</th>
-					</tr>	
-				</thead>
-				<tbody>
-						<%	IntDaoAluno al = new DaoAluno();
-							List<Aluno> chamada = new LinkedList<Aluno>();
-							chamada = al.getTodosAlunos();
-							int td = 0;
-							for(Aluno a : chamada)
-							{
-							td++; %>
-							<tr align="center" id="linha<%=td %>">
-							  <td><%=a.getRa() %></td>
-							  <td><%=a.getNome() %></td>
-							  <td>
-							  		<input type="checkbox" id="presenca1" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
-							  		<input type="checkbox" id="presenca2" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
-							  		<input type="checkbox" id="presenca3" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
-							  		<input type="checkbox" id="presenca4" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
-							  </td>
-							</tr>
-						  <%}%>
-				</tbody>
-			</table>
+		    <input type="submit" value="Gerar Chamada">
 		</div>
 	</form>
 	<script type="text/javascript" src="script.js"></script>
-	<script>
-	</script>
 </body>
 </html>

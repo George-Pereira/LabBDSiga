@@ -23,7 +23,7 @@ public class DaoAluno implements IntDaoAluno {
 		List<Aluno> lista = new LinkedList<Aluno>();
 		String sql = "SELECT a.ra, a.nome FROM matricula m "
 				+ "inner join aluno a on a.ra = m.ra_aluno "
-				+ "inner join disciplina d on d.codigo = m.codigo_disciplina ";
+				+ "inner join disciplina d on d.codigo = m.codigo_disciplina WHERE d.codigo = ?";
 		PreparedStatement state;
 		try
 		{

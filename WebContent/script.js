@@ -1,7 +1,5 @@
 function listaAlunosporDisciplina(cod_disciplina) {
-	/*console.log(cod_disciplina);*/
-	var disciplina = document.getElementById('campos').state.display = 'block';
-	var cmpname= Packages.com.projetosiga.dao.DaoAluno.getListaAlunos();
+	let alvo = document.querySelector('')
 }
 
 function tdGanhaFoco (num) {
