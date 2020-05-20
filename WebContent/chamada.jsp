@@ -49,9 +49,8 @@
 		%>
 		</select><br>
 	</div>
-	<div>
-		<table width="60%">
-			
+	<div align="center">
+		<table width="100%">
 				<thead>
 					<tr>
 						<th>RA</th>
@@ -59,15 +58,14 @@
 						<th>Faltas</th>
 					</tr>	
 				</thead>
-				<tbody>
 						<%	IntDaoAluno al = new DaoAluno();
 							List<Aluno> chamada = new LinkedList<Aluno>();
 							chamada = al.getListaAlunos("4203-010");
 							for(Aluno a : chamada)
 							{ %>
-							  <tr><%a.getRa();%></tr>	
+							  <tr align="center" width="80"><td><%=a.getRa()%></td>
+							  <td><%=a.getNome()%></td></tr>
 						  <%}%>
-				</tbody>
 		</table>
 	</div>
 </body>
