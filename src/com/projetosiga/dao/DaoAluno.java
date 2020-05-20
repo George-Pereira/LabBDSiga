@@ -25,7 +25,7 @@ public class DaoAluno implements IntDaoAluno {
 				+ "inner join aluno a on a.ra = m.ra_aluno "
 				+ "inner join disciplina d on d.codigo = m.codigo_disciplina ";
 		PreparedStatement state;
-		try 
+		try
 		{
 			state = c.prepareStatement(sql);
 			state.setString(1, cod_disciplina);
@@ -48,7 +48,6 @@ public class DaoAluno implements IntDaoAluno {
 		Collections.sort(lista);
 		return lista;
 	}
-	
 	public List<Aluno> getTodosAlunos() {
 		List<Aluno> chamada = new LinkedList<Aluno>();
 		String sql = "SELECT * from aluno";

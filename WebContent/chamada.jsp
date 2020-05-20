@@ -66,7 +66,37 @@
 			<input id="data" name="data" type="date" value="<%=ano %>-<%=mes %>-<%=dia%>">
 			<button onclick="carregalista()"/>
 		</div>
-		
+		<div align="center">
+			<table width="60%">
+				<thead>
+					<tr align="center" style="padding:50px">
+						<th>RA</th>
+						<th>Nome</th>
+						<th>Faltas</th>
+					</tr>	
+				</thead>
+				<tbody>
+						<%	IntDaoAluno al = new DaoAluno();
+							List<Aluno> chamada = new LinkedList<Aluno>();
+							chamada = al.getTodosAlunos();
+							int td = 0;
+							for(Aluno a : chamada)
+							{
+							td++; %>
+							<tr align="center" id="linha<%=td %>">
+							  <td><%=a.getRa() %></td>
+							  <td><%=a.getNome() %></td>
+							  <td>
+							  		<input type="checkbox" id="presenca1" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
+							  		<input type="checkbox" id="presenca2" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
+							  		<input type="checkbox" id="presenca3" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
+							  		<input type="checkbox" id="presenca4" name="presenca4" value="1" onfocus="tdGanhaFoco(<%=td %>)" onblur="tdPerdeFoco(<%=td %>)">
+							  </td>
+							</tr>
+						  <%}%>
+				</tbody>
+			</table>
+		</div>
 	</form>
 	<script type="text/javascript" src="script.js"></script>
 	<script>
