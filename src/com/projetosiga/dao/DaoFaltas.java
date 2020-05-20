@@ -22,7 +22,7 @@ public class DaoFaltas
 	}
 	public void inserirFaltas(Faltas aluno) throws SQLException
 	{
-		String sql = "{CALL sp_inserenota(?,?,?,?)}";
+		String sql = "{CALL sp_insereFaltas(?,?,?,?)}";
 		CallableStatement state = connect.prepareCall(sql);
 		state.setString(1, aluno.getRa_aluno());
 		state.setString(2, aluno.getCodigo_disciplina());

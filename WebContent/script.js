@@ -1,7 +1,7 @@
 function listaAlunosporDisciplina(cod_disciplina) {
-	document.getElementById('campos').style.display = 'block';
-	console.log(cod_disciplina);
-	var cmpname= Packages.com.projetosiga.dao.DaoAluno.getListaAlunos(cod_disciplina);
+	/*console.log(cod_disciplina);*/
+	var disciplina = document.getElementById('campos').state.display = 'block';
+	var cmpname= Packages.com.projetosiga.dao.DaoAluno.getListaAlunos();
 }
 
 function tdGanhaFoco (num) {
@@ -11,5 +11,6 @@ function tdGanhaFoco (num) {
 function tdPerdeFoco (num) {
 	document.getElementById('linha'+num).style.backgroundColor = "white";
 }
+
 
 

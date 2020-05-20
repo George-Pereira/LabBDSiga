@@ -20,7 +20,7 @@ public class DaoDisciplina implements IntDaoDisciplina {
 	}
 	
 	public List<Disciplina> getListaDisciplinas () throws SQLException {
-		String sql = "SELECT * FROM disciplina";
+		String sql = "SELECT * FROM disciplina ORDER BY disciplina.nome";
 		Statement stmt = c.createStatement();
 		ResultSet rs = stmt.executeQuery(sql);
 		List<Disciplina> listaDisciplinas = new LinkedList<Disciplina>();
@@ -35,7 +35,6 @@ public class DaoDisciplina implements IntDaoDisciplina {
 		}
 		rs.close();
 		stmt.close();
-		Collections.sort(listaDisciplinas);
 		return listaDisciplinas;
 	}
 }
