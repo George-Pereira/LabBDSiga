@@ -3,6 +3,7 @@ package com.projetosiga.dao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.projetosiga.entity.Faltas;
 
@@ -24,5 +25,10 @@ public class DaoFaltas
 		state.setInt(4, aluno.getPresencas());
 		state.execute();
 		state.close();
+	}
+	public List<Faltas> construirRelatorio()
+	{
+		
+		return null;
 	}
 }

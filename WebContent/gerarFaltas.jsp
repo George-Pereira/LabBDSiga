@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.projetosiga.dao.IntDaoDisciplina" %>
+<%@ page import="com.projetosiga.entity.Disciplina"%>
+<%@ page import="com.projetosiga.dao.DaoDisciplina"%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.LinkedList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,4 +32,23 @@
 		</div>
 	</header>
 </body>
+	<form action="relatoriofaltas" method="post">
+		<div align="center" style="padding:50px">
+			<label for="disciplina">Disciplina</label>
+			<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
+				<% 
+					List<Disciplina> listDisc = new LinkedList<Disciplina>();
+					IntDaoDisciplina dao = new DaoDisciplina();
+					listDisc = dao.getListaDisciplinas();
+					for(Disciplina disc : listDisc)
+					{
+				%>
+					<option value="<%=disc.getCodigo() %>"><%=disc.toString() %></option>
+				<%
+					}
+				%>
+			</select><br>
+			<input type="submit" value="Consultar Relatório de Faltas">
+		</div>
+	</form>
 </html>
