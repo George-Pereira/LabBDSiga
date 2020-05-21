@@ -1,6 +1,6 @@
 package com.projetosiga.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Faltas {
 	private String ra_aluno;

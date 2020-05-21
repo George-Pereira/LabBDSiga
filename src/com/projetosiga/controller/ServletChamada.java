@@ -36,7 +36,7 @@ public class ServletChamada extends HttpServlet
 	{
 		String cod_disc = req.getParameter("disciplina");
 		String dt = req.getParameter("data");
-		System.out.println(dt);
+		dt = dt.substring(8,10)+"/"+dt.substring(5,7)+"/"+dt.substring(0,4);
 		IntDaoAluno dao = new DaoAluno();
 		List<Aluno> chamada = new LinkedList<Aluno>();
 		chamada = dao.getListaAlunos(cod_disc);
@@ -64,29 +64,35 @@ public class ServletChamada extends HttpServlet
 	    // FIM DA NAV BAR
 	    
 	    // INICIO TABELA
-		sb.append("<div align=\"center\" style=\"margin: 0 auto;\">");
+		sb.append("<div align=\"center\" class=\"tabelaChamada\">");
+		sb.append("<form action=\"insereFaltas\" method=\"post\">");
 		sb.append("<table width=\"60%\">");
 		sb.append("<thead>");
 		sb.append("<tr align=\"center\" style=\"padding:50px\">");
 		sb.append("<th>RA</th><th>Nome</th><th>Faltas</th></thead><tbody>");
-		int td = 0;
+		int td = 1;
 		for(Aluno a : chamada) {
 			sb.append("<tr align=\"center\" id=\"linha" + td +"\" style=\"background-color: white;\">"
-						+ "<td>" + a.getRa() + "</td>"
+						+ "<td><input type=\"text\" id=\"raAluno"+td+"\" name=\"raAluno"+td+"\" required readonly value=\""+a.getRa()+"\"></td>"
 						+ "<td>" + a.getNome() + "</td>"
 						+ "<td>"
-							+ "<input type=\"checkbox\" id=\"presenca1linha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
-							+ "<input type=\"checkbox\" id=\"presenca2linha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
-							+ "<input type=\"checkbox\" id=\"presenca3linha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
-							+ "<input type=\"checkbox\" id=\"presenca4linha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
+							+ "<input type=\"checkbox\" value=\"1\" name=\"presencaLinha" + td + "\" id=\"presencaLinha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
+							+ "<input type=\"checkbox\" value=\"1\" name=\"presencaLinha" + td + "\" id=\"presencaLinha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
+							+ "<input type=\"checkbox\" value=\"1\" name=\"presencaLinha" + td + "\" id=\"presencaLinha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
+							+ "<input type=\"checkbox\" value=\"1\" name=\"presencaLinha" + td + "\" id=\"presencaLinha" + td + "\" onchange=\"tdGanhaFoco(" + td + ")\" onblur=\"tdPerdeFoco(" + td + ")\">"
 						+ "</td>"
 					+ "</tr>");
 			td++;
 		}
+		td--;
 		sb.append("</tbody>");
 		sb.append("</table>");
+		sb.append("<input type=\"text\" id=\"codigo_disciplina\" name=\"codigo_disciplina\" readonly style=\"display: none\" value=\""+cod_disc+"\" <br>");
+		sb.append("<input type=\"text\" id=\"quantidadeAlunos\" name=\"quantidadeAlunos\" readonly style=\"display: none\" value=\""+td+"\" <br>");
+		sb.append("<input type=\"text\" id=\"data\" name=\"data\" readonly value=\""+dt+"\" <br><br>");
+		sb.append("<input type=\"submit\" value=\"Registrar Faltas\">");
+		sb.append("</form>");
 		sb.append("</div>");
-		
 		
 		sb.append("<script type=\"text/javascript\" src=\"script.js\"></script>");
 		sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"./style.css\">");

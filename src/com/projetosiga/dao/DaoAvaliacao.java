@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.projetosiga.entity.Aluno;
 import com.projetosiga.entity.Avaliacao;
 
 public class DaoAvaliacao implements IntDaoAvaliacao {

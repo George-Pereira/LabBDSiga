@@ -1,6 +1,7 @@
 package com.projetosiga.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,18 +39,37 @@ public class ServletFaltas extends HttpServlet
 	{
 		try {
 			DaoFaltas dao = new DaoFaltas();
-			Faltas aluno = new Faltas();
-			aluno.setRa_aluno(req.getParameter("ra_aluno"));
-			aluno.setCodigo_disciplina(req.getParameter("cod_disc"));
+			int quantidadeAlunos = Integer.parseInt(req.getParameter("quantidadeAlunos"));
+			
 			String dataPagina = req.getParameter("data");
 			Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataPagina);
-			aluno.setDia(date);
-			aluno.setPresencas(Integer.parseInt(req.getParameter("presencas")));
-			dao.inserirFaltas(aluno);
+			java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+			
+			for(int i = 1; i <= quantidadeAlunos; i++) {
+				Faltas falta = new Faltas();
+				falta.setRa_aluno(req.getParameter("raAluno"+i));
+				falta.setCodigo_disciplina(req.getParameter("codigo_disciplina"));
+				falta.setDia(sqlDate);
+				
+				String[] presencas = req.getParameterValues("presencaLinha"+i);
+				if (presencas != null) {
+					falta.setPresencas(4 - presencas.length);
+				} else {
+					falta.setPresencas(4);
+				}
+				dao.inserirFaltas(falta);
+			}
+			
+			PrintWriter out = resp.getWriter();
+			resp.setContentType("text/html");
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('Nota inserida com sucesso!');");
+			out.println("var url= \"./selchamada.jsp\"; window.location = url;"); 
+			out.println("</script>");
 		}
-		catch (ParseException | SQLException e) 
+		catch (IOException | ParseException | SQLException e) 
 		{
 			e.printStackTrace();
-		}
+		} 
 	}
 }
