@@ -35,7 +35,7 @@
 	<form action="relatoriofaltas" method="post">
 		<div align="center" style="padding:50px">
 			<label for="disciplina">Disciplina</label>
-			<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
+			<select id="disciplina" style="border-radius: 12px; border: none; color: white; background-color: gray; height: 25px;"name="disciplina" required style="height: 25px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
 				<% 
 					List<Disciplina> listDisc = new LinkedList<Disciplina>();
 					IntDaoDisciplina dao = new DaoDisciplina();
@@ -48,7 +48,7 @@
 					}
 				%>
 			</select><br>
-			<input type="submit" value="Consultar Relatório de Faltas">
+			<input type="submit" value="Consultar Relatório de Faltas" style="color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: none; border-radius: 20px">
 		</div>
 	</form>
 </html>

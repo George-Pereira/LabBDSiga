@@ -37,7 +37,7 @@
 	<form action="chamada" method="post">
 		<div align="center" style="padding:50px;">
 			<label for="disciplina">Disciplina</label>
-			<select id="disciplina" name="disciplina" required style="height: 25px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
+			<select id="disciplina" style="border-radius: 12px; border: none; color: white; background-color: gray; height: 25px;"name="disciplina" required style="height: 50px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
 				<% 
 					List <Disciplina> listDisc = new LinkedList<Disciplina>();
 					IntDaoDisciplina dao = new DaoDisciplina();
@@ -45,7 +45,7 @@
 					for(Disciplina disc : listDisc)
 					{
 				%>
-					<option value="<%=disc.getCodigo() %>"><%=disc.toString() %></option>
+					<option value="<%=disc.getCodigo() %>" style="border: none; background-color: gray; color: white;"><%=disc.toString() %></option>
 				<%
 					}
 				%>
@@ -62,8 +62,8 @@
 			int dia = cal.get(Calendar.DAY_OF_MONTH);
 			%>
 			<label for="data">Data</label>
-			<input id="data" name="data" type="date" value="<%=ano %>-<%=mes %>-<%=dia%>">
-		    <input type="submit" value="Gerar Chamada">
+			<input id="data" name="data" style="border-radius: 12px; border: none; height: 20px; color: white; background-color: gray;" type="date" value="<%=ano %>-<%=mes %>-<%=dia%>">
+		    <input type="submit" value="Gerar Chamada" style="color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: none; border-radius: 20px">
 		</div>
 	</form>
 	<script type="text/javascript" src="script.js"></script>

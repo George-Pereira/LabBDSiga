@@ -90,7 +90,7 @@ public class ServletChamada extends HttpServlet
 		sb.append("<input type=\"text\" id=\"codigo_disciplina\" name=\"codigo_disciplina\" readonly style=\"display: none\" value=\""+cod_disc+"\" <br>");
 		sb.append("<input type=\"text\" id=\"quantidadeAlunos\" name=\"quantidadeAlunos\" readonly style=\"display: none\" value=\""+td+"\" <br>");
 		sb.append("<input type=\"text\" id=\"data\" name=\"data\" readonly value=\""+dt+"\" <br><br>");
-		sb.append("<input type=\"submit\" value=\"Registrar Faltas\">");
+		sb.append("<input type=\"submit\" value=\"Registrar Faltas\" style=\"color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: none; border-radius: 20px\">");
 		sb.append("</form>");
 		sb.append("</div>");
 		

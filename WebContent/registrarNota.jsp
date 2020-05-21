@@ -39,7 +39,7 @@
 	<div align="center" style="padding:50px;">
 		<form action="registraNota" method="post">
 			  <label for="codigo_disciplina">Disciplina </label>
-			  <select id="codigo_disciplina" name="codigo_disciplina" required style="height: 25px; width: 310px;">
+			  <select id="codigo_disciplina" style="border-radius: 12px; border: none; color: white; background-color: gray; height: 25px;" name="codigo_disciplina" required style="height: 25px; width: 310px;">
 			  	  <option>Selecione uma disciplina</option>
 				  <%
 				  	List<Disciplina> listaDisciplinas = new LinkedList<Disciplina>();
@@ -52,7 +52,7 @@
 					}
 				  %>
 			  </select><br><br>
-			  <input type="submit" value="Registrar Nota">
+			  <input type="submit" value="Registrar Nota" style="color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: none; border-radius: 20px">
 		</form> 
 	</div>
 	
