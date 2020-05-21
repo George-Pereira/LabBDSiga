@@ -63,7 +63,7 @@ public class ServletFaltas extends HttpServlet
 			PrintWriter out = resp.getWriter();
 			resp.setContentType("text/html");
 			out.println("<script type=\"text/javascript\">");
-			out.println("alert('Nota inserida com sucesso!');");
+			out.println("alert('Chamada Realizada com Sucesso!');");
 			out.println("var url= \"./selchamada.jsp\"; window.location = url;"); 
 			out.println("</script>");
 		}
