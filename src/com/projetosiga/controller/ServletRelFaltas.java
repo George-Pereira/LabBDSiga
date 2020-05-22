@@ -16,6 +16,11 @@ import com.projetosiga.entity.Faltas;
 @WebServlet("/relatoriofaltas")
 public class ServletRelFaltas extends HttpServlet 
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
 	{
@@ -39,12 +44,12 @@ public class ServletRelFaltas extends HttpServlet
 		    sb.append("<li><img src=\"./img/logosiga.png\" id=\"logo\"></li>");
 		    sb.append("<li><a href=\"./index.jsp\">Home</a></li>");
 		    sb.append("<li><a href=\"./selchamada.jsp\">Chamada</a></li>");
-		    sb.append("<li><a href=\"./registrarNota.jsp\" class=\"active\">Registrar Nota</a></li>");
+		    sb.append("<li><a href=\"./registrarNota.jsp\">Registrar Nota</a></li>");
 		    sb.append("<li class=\"dropdown\">");
-		    sb.append("<a class=\"dropbtn\">Relatórios</a>");
+		    sb.append("<a class=\"dropbtn active\" >Relatórios</a>");
 		    sb.append("<div class=\"dropdown-content\">");
 		    sb.append("<a href=\"./gerarMedias.jsp\">Gerar Médias</a>");
-		    sb.append("<a href=\"./gerarFaltas.jsp\">Gerar Faltas</a>");
+		    sb.append("<a href=\"./gerarFaltas.jsp\" class=\"active\">Gerar Faltas</a>");
 		    sb.append("</div>");
 		    sb.append("</li>");
 		    sb.append("</ul>");

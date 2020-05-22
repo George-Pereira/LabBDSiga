@@ -1,6 +1,7 @@
 package com.projetosiga.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,5 +36,23 @@ public class DaoDisciplina implements IntDaoDisciplina {
 		rs.close();
 		stmt.close();
 		return listaDisciplinas;
+	}
+	
+	public Disciplina getDisciplinaPorCod(String codigo) throws SQLException {
+		String sql = "SELECT * FROM disciplina where codigo = ?";
+		PreparedStatement stmt = c.prepareStatement(sql);
+		stmt.setString(1, codigo);
+		ResultSet rs = stmt.executeQuery();
+		Disciplina disciplina = new Disciplina();
+		while (rs.next()) {
+			disciplina.setCodigo(rs.getString("codigo"));
+			disciplina.setNome(rs.getString("nome"));
+			disciplina.setSigla(rs.getString("sigla"));
+			disciplina.setTurno(rs.getString("turno"));
+			disciplina.setNaulas(rs.getInt("num_aulas"));
+		}
+		rs.close();
+		stmt.close();
+		return disciplina;
 	}
 }

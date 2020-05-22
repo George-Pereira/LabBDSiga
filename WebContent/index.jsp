@@ -19,8 +19,8 @@
 			  <li class="dropdown">
 			    <a class="dropbtn">Relatórios</a>
 			    <div class="dropdown-content">
-			      <a class="active" href="./gerarMedias.jsp">Gerar Médias</a>
-			      <a class="active" href="./gerarFaltas.jsp">Gerar Faltas</a>
+			      <a href="./gerarMedias.jsp">Gerar Médias</a>
+			      <a href="./gerarFaltas.jsp">Gerar Faltas</a>
 			    </div>
 	  		  </li>
 			</ul>
