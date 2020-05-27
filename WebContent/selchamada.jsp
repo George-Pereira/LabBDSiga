@@ -34,7 +34,7 @@
   		  </li>
 		</ul>
 	</div>
-	<form action="chamada" method="post">
+	<form action="./chamada.jsp" method="post">
 		<div align="center" style="padding:50px;">
 			<label for="disciplina">Disciplina</label>
 			<select id="disciplina" style="border-radius: 12px; border: none; color: white; background-color: gray; height: 25px;"name="disciplina" required style="height: 50px; width: 310px;"onchange="listaAlunosporDisciplina(document.getElementById('codigo_disciplina').value)">
