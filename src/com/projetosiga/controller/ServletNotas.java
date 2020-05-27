@@ -38,7 +38,7 @@ public class ServletNotas extends HttpServlet {
 		response.setContentType("text/html");
 		out.println("<script type=\"text/javascript\">");
 		out.println("alert('Nota inserida com sucesso!');");
-		out.println("var url= \"./registraNota?disciplina="+nota.getCodigo_disciplina()+"\"; window.location = url;"); 
+		out.println("var url= \"./registrarNotaS.jsp?disciplina="+nota.getCodigo_disciplina()+"\"; window.location = url;"); 
 		out.println("</script>");
 	}
 	

@@ -37,7 +37,7 @@
 	</div>
 	
 	<div align="center" style="padding:50px;">
-		<form action="registraNota" method="post">
+		<form action="./registrarNotaS.jsp" method="post">
 			  <label for="codigo_disciplina">Disciplina </label>
 			  <select id="codigo_disciplina" style="border-radius: 12px; border: none; color: white; background-color: gray; height: 25px;" name="codigo_disciplina" required style="height: 25px; width: 310px;">
 			  	  <option>Selecione uma disciplina</option>
