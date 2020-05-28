@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.projetosiga.dao.DaoDisciplina;
 import com.projetosiga.dao.DaoFaltas;
+import com.projetosiga.entity.Disciplina;
 import com.projetosiga.entity.Faltas;
 
 
@@ -45,17 +47,30 @@ public class ServletFaltas extends HttpServlet
 			Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dataPagina);
 			java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 			
+			String codigo_disciplina = req.getParameter("codigo_disciplina");
+			Disciplina disciplina = new Disciplina();
+			DaoDisciplina daoDisciplina = new DaoDisciplina();
+			disciplina = daoDisciplina.getDisciplinaPorCod(codigo_disciplina);
+			
 			for(int i = 1; i <= quantidadeAlunos; i++) {
 				Faltas falta = new Faltas();
 				falta.setRa_aluno(req.getParameter("raAluno"+i));
-				falta.setCodigo_disciplina(req.getParameter("codigo_disciplina"));
+				falta.setCodigo_disciplina(codigo_disciplina);
 				falta.setDia(sqlDate);
 				
 				String[] presencas = req.getParameterValues("presencaLinha"+i);
 				if (presencas != null) {
-					falta.setPresencas(4 - presencas.length);
+					if (disciplina.getNaulas() > 40) {
+						falta.setPresencas(4 - presencas.length);
+					} else {
+						falta.setPresencas(2 - presencas.length);
+					}
 				} else {
-					falta.setPresencas(4);
+					if (disciplina.getNaulas() > 40) {
+						falta.setPresencas(4);
+					} else {
+						falta.setPresencas(2);
+					}
 				}
 				dao.inserirFaltas(falta);
 			}
