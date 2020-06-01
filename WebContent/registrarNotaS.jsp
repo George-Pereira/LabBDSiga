@@ -50,6 +50,8 @@
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		if(!alunos.isEmpty())
+		{
 	%>
 	
 	<div id="campos" align="center" style="padding:50px;">
@@ -77,8 +79,14 @@
 			<input type="submit" value="Registrar">
 		</form>
 	</div>
-
-
+	<%}
+		else
+		{
+			%><div align="center" style="margin: 100px 300px; border: 3px solid black;"><h1>Não há alunos matriculados nessa matéria<h1><br>
+			<br><button style="width: 100px; height: 50px" onclick="location.href='./registrarNota.jsp'">Voltar</button></div><%
+		}
+	%>
+	
 	<script type="text/javascript" src="script.js"></script>
 </body>
 </html>''

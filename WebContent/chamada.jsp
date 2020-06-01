@@ -41,46 +41,51 @@
 				chamada = dao.getListaAlunos(cod_disc);
 				Disciplina disciplina = new Disciplina();
 				DaoDisciplina daoDisciplina = new DaoDisciplina();
-				try {
+				try 
+				{
 					disciplina = daoDisciplina.getDisciplinaPorCod(cod_disc);
-				} catch (SQLException e1) {
+				}
+				catch (SQLException e1) 
+				{
 					e1.printStackTrace();
 				}
-		%><div align="center" class="tabelaChamada">
-				<form action="insereFaltas" method="post">
-					<table width="60%">
-						<thead>
-							<tr align="center" style="padding:50px">
-							<th>RA</th>
-							<th>Nome</th>
-							<th>Faltas</th>
-						</thead>
-						<tbody>
-							<% 
-							int td = 1;
-							for(Aluno a : chamada) 
-							{
+				if(!chamada.isEmpty())
+				{
+					%><div align="center" class="tabelaChamada">
+						<form action="insereFaltas" method="post">
+							<table width="60%">
+								<thead>
+									<tr align="center" style="padding:50px">
+										<th>RA</th>
+										<th>Nome</th>
+										<th>Faltas</th>
+								</thead>
+								<tbody>
+								<% 
+								int td = 1;
+								for(Aluno a : chamada) 
+								{
 								%>
-								<tr align="center" id="linha<%=td%>" style="background-color: white;">
-									<td><input type="text" id="raAluno<%=td%>" name="raAluno<%=td%>" required readonly value="<%=a.getRa()%>"></td>
-									<td><%=a.getNome()%></td>
-									<td>
-									<% 
-									if (disciplina.getNaulas() != 40)
-									{
-									%>
-										<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
-										<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
-									<%
-									}
-									%>
-										<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
-										<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
-									</td>
-								</tr>
+									<tr align="center" id="linha<%=td%>" style="background-color: white;">
+										<td><input type="text" id="raAluno<%=td%>" name="raAluno<%=td%>" required readonly value="<%=a.getRa()%>"></td>
+										<td><%=a.getNome()%></td>
+										<td>
+										<% 
+										if (disciplina.getNaulas() != 40)
+										{
+										%>
+											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+										<%
+										}
+										%>
+											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+										</td>
+									</tr>
 								<%
 								td++;
-							}
+								}
 							td--;%>
 						</tbody>
 					</table>
@@ -91,6 +96,12 @@
 			</form>
 		</div>
 		<%
+				}
+				else
+				{
+					%><div  align="center" style="margin: 100px 300px; border: 3px solid red;"><h1>NÃO HÁ ALUNOS MATRICULADOS NESTA DISCIPLINA!</h1>
+					<br><button style="width: 100px; height: 50px" onclick="location.href='./selchamada.jsp'">Voltar</button></div><%
+				}
 			}
 			catch(Exception e)
 			{
