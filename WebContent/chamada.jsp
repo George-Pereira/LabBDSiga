@@ -13,6 +13,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Siga - Chamada</title>
+<link rel="stylesheet" type="text/css" href="./style.css">
 </head>
 <body>
 	<div class="navBar">
@@ -99,7 +100,7 @@
 				}
 				else
 				{
-					%><div  align="center" style="margin: 100px 300px; border: 3px solid red;"><h1>NÃO HÁ ALUNOS MATRICULADOS NESTA DISCIPLINA!</h1>
+					%><div  align="center" style="margin: 100px 300px;"><h1>NÃO HÁ ALUNOS MATRICULADOS NESTA DISCIPLINA!</h1>
 					<br><button style="width: 100px; height: 50px" onclick="location.href='./selchamada.jsp'">Voltar</button></div><%
 				}
 			}
@@ -110,6 +111,6 @@
 		%>
 	</div>
 	<script type="text/javascript" src=\"script.js"></script>
-	<link rel="stylesheet" type="text/css" href="./style.css">
+	
 </body>
 </html>
