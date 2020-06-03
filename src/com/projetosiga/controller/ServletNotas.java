@@ -34,12 +34,8 @@ public class ServletNotas extends HttpServlet {
 		nota.setPeso(valor_peso);
 		insereNota(nota);
 		
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/html");
-		out.println("<script type=\"text/javascript\">");
-		out.println("alert('Nota inserida com sucesso!');");
-		out.println("var url= \"./registrarNotaS.jsp?disciplina="+nota.getCodigo_disciplina()+"\"; window.location = url;"); 
-		out.println("</script>");
+		request.getSession().setAttribute("MENSAGEM", "Nota inserida com sucesso!");
+		response.sendRedirect("./registrarNotaS.jsp?disciplina="+nota.getCodigo_disciplina());
 	}
 	
 	private void insereNota(Notas nota) {

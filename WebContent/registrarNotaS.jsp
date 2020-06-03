@@ -1,3 +1,6 @@
+<%@page import="com.projetosiga.entity.Disciplina"%>
+<%@page import="com.projetosiga.dao.DaoDisciplina"%>
+<%@page import="com.projetosiga.dao.IntDaoDisciplina"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="com.projetosiga.dao.DaoAvaliacao"%>
 <%@page import="com.projetosiga.entity.Avaliacao"%>
@@ -39,6 +42,9 @@
 			cod_disc = request.getParameter("disciplina");
 		}
 		
+		DaoDisciplina daoDisciplina = new DaoDisciplina();
+		Disciplina disciplina = daoDisciplina.getDisciplinaPorCod(cod_disc);
+		
 		IntDaoAluno dao = new DaoAluno();
 		List<Aluno> alunos = new LinkedList<Aluno>();
 		alunos = dao.getListaAlunos(cod_disc);
@@ -56,8 +62,9 @@
 	
 	<div id="campos" align="center" style="padding:50px;">
 		<form action="insereNota" method="post"> 
-			<label for="nota">Disciplina</label> 
-			<input type="text" id="codigo_disciplina" name="codigo_disciplina" required readonly value="<%= cod_disc %>"><br><br>
+			<input type="text" id="codigo_disciplina" name="codigo_disciplina" style="display: none;"required readonly value="<%= cod_disc %>"><br><br>
+			<label for="nome_disciplina">Disciplina</label> 
+			<input type="text" id="nome_disciplina" name="nome_disciplina" style="width: 350px;"required readonly value="<%= disciplina %>"><br><br>
 			<label for="ra_aluno">Nome do Aluno </label>
 			<select id="ra_aluno" name="ra_aluno" required style="height: 25px; width: 250px;">
 			<% 
@@ -78,11 +85,21 @@
 			<input type="number" autocomplete="off" step="any" id="peso" min="0" name="peso" required style="height: 30px; width: 80px;"><br>
 			<input type="submit" value="Registrar">
 		</form>
+		
+		<%
+			String msg = (String)session.getAttribute("MENSAGEM");
+			if(msg != null) {
+				session.setAttribute("MENSAGEM", null);
+				%>
+					<div class="alert alert-success" role="alert"><%= msg%></div>
+				<%
+			}
+		%>
 	</div>
 	<%}
 		else
 		{
-			%><div align="center" style="margin: 100px 300px; border: 3px solid black;"><h1>Não há alunos matriculados nessa matéria<h1><br>
+			%><div align="center" style="margin: 100px 300px;"><h1>Não há alunos matriculados nessa matéria<h1><br>
 			<br><button style="width: 100px; height: 50px" onclick="location.href='./registrarNota.jsp'">Voltar</button></div><%
 		}
 	%>
