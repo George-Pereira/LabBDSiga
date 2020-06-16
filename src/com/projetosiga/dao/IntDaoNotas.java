@@ -7,4 +7,6 @@ import com.projetosiga.entity.Notas;
 public interface IntDaoNotas {
 
 	public void inserirNota(Notas nota) throws SQLException;
+
+	public void atualizaNota(Notas nota) throws SQLException;
 }

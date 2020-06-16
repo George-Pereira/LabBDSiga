@@ -32,19 +32,22 @@ public class ServletNotas extends HttpServlet {
 		nota.setNota(valor_nota);
 		Double valor_peso = Double.valueOf(request.getParameter("peso"));
 		nota.setPeso(valor_peso);
-		insereNota(nota);
 		
-		request.getSession().setAttribute("MENSAGEM", "Nota inserida com sucesso!");
-		response.sendRedirect("./registrarNotaS.jsp?disciplina="+nota.getCodigo_disciplina());
-	}
-	
-	private void insereNota(Notas nota) {
 		IntDaoNotas dao = new DaoNotas();
 		try {
 			dao.inserirNota(nota);
+			request.getSession().setAttribute("MENSAGEM", "Nota inserida com sucesso!");
 		} catch (SQLException e) {
-			e.printStackTrace();
+			try {
+				dao.atualizaNota(nota);
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
+			request.getSession().setAttribute("MENSAGEM", "Nota já inserida!\nAtualizando nota...\nNota atualizada com sucesso!");
 		}
+		request.getSession().setAttribute("peso", valor_peso);
+		request.getSession().setAttribute("cod_av", cod_av);
+		response.sendRedirect("./registrarNotaS.jsp?disciplina="+nota.getCodigo_disciplina());
 	}
-
+	
 }

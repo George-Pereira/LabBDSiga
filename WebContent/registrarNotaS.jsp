@@ -72,17 +72,24 @@
 				%><option value="<%=aluno.getRa()%>"><%= aluno.getNome()%></option> 
 			<%}%>
 			</select><br><br>
-			<label for="codigo_avaliacao">Código da Avaliação </label>
+			<label for="codigo_avaliacao">Avaliação </label>
 			<select id="codigo_avaliacao" name="codigo_avaliacao" required style="height: 30px; width: 100px;">
 			<% 
 			for (Avaliacao avaliacao : listaAvaliacao) {
-				%><option value="<%=avaliacao.getCodigo()%>"><%= avaliacao.getTipo()%></option> 
+				%><option value="<%=avaliacao.getCodigo()%>" <%if (session.getAttribute("cod_av") != null ) {
+																if(avaliacao.getCodigo() == (int) session.getAttribute("cod_av")){%>selected <%}} %>  ><%= avaliacao.getTipo()%></option> 
 			<%}%>
 			</select><br><br> 
 			<label for="nota">Nota </label> 
 			<input type="number" autocomplete="off" step="any" id="nota" min="0" name="nota" required style="height: 30px; width: 80px;"><br> 
+			<%
+				Double peso = (Double) session.getAttribute("peso");
+				if (peso == null) {
+					peso = 0.0;
+				}
+			%>
 			<label for="peso">Peso </label> 
-			<input type="number" autocomplete="off" step="any" id="peso" min="0" name="peso" required style="height: 30px; width: 80px;"><br>
+			<input type="number" autocomplete="off" step="any" id="peso" min="0" value="<%=peso %>"name="peso" required style="height: 30px; width: 80px;"><br>
 			<input type="submit" value="Registrar">
 		</form>
 		

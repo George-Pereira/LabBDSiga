@@ -2,6 +2,7 @@ package com.projetosiga.dao;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.projetosiga.entity.Notas;
@@ -25,6 +26,18 @@ public class DaoNotas implements IntDaoNotas {
 		cs.setDouble(5, nota.getPeso());
 		cs.execute();
 		cs.close();
+	}
+
+	public void atualizaNota(Notas nota) throws SQLException {
+		String sql = "UPDATE notas set nota = ?, peso = ? where ra_aluno = ? AND codigo_disciplina = ? AND codigo_avaliacao = ?";
+		PreparedStatement stmt = c.prepareStatement(sql);
+		stmt.setDouble(1, nota.getNota());
+		stmt.setDouble(2, nota.getPeso());
+		stmt.setString(3, nota.getRa_aluno());
+		stmt.setString(4, nota.getCodigo_disciplina());
+		stmt.setInt(5, nota.getCodigo_avaliacao());
+		stmt.execute();
+		stmt.close();
 	}
 	
 }
