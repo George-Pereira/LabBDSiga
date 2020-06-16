@@ -1,9 +1,9 @@
 package com.projetosiga.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,10 +19,14 @@ private Connection c;
 	}
 
 	@Override
-	public List<Avaliacao> getListaAvaliacao() throws SQLException {
-		String sql = "SELECT * FROM avaliacao";
-		Statement stmt = c.createStatement();
-		ResultSet rs = stmt.executeQuery(sql);
+	public List<Avaliacao> getListaAvaliacao(String codDisciplina) throws SQLException {
+		String sql = "select a.codigo, a.tipo from avaliacao a "
+				+ "inner join disciplina_avaliacao da on da.cod_avaliacao = a.codigo "
+				+ "inner join disciplina d on d.codigo = da.cod_disciplina "
+				+ "where da.cod_disciplina = ?";
+		PreparedStatement stmt = c.prepareStatement(sql);
+		stmt.setString(1, codDisciplina);
+		ResultSet rs = stmt.executeQuery();
 		List<Avaliacao> listaAvaliacao = new LinkedList<Avaliacao>();
 		while (rs.next()) {
 			Avaliacao avaliacao = new Avaliacao();

@@ -52,7 +52,7 @@
 		DaoAvaliacao daoAvaliacao = new DaoAvaliacao();
 		
 		try {
-			listaAvaliacao = daoAvaliacao.getListaAvaliacao();
+			listaAvaliacao = daoAvaliacao.getListaAvaliacao(cod_disc);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -73,7 +73,7 @@
 			<%}%>
 			</select><br><br>
 			<label for="codigo_avaliacao">Código da Avaliação </label>
-			<select id="codigo_avaliacao" name="codigo_avaliacao" required style="height: 30px; width: 80px;">
+			<select id="codigo_avaliacao" name="codigo_avaliacao" required style="height: 30px; width: 100px;">
 			<% 
 			for (Avaliacao avaliacao : listaAvaliacao) {
 				%><option value="<%=avaliacao.getCodigo()%>"><%= avaliacao.getTipo()%></option> 

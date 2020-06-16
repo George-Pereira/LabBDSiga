@@ -7,5 +7,5 @@ import com.projetosiga.entity.Avaliacao;
 
 public interface IntDaoAvaliacao {
 
-	public List<Avaliacao> getListaAvaliacao () throws SQLException;
+	public List<Avaliacao> getListaAvaliacao (String codDisciplina) throws SQLException;
 }
