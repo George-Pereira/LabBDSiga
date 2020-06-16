@@ -13,8 +13,7 @@ public class DaoGenerica implements IntDaoGenerica
 	{
 		try {
 			Class.forName("net.sourceforge.jtds.jdbc.Driver");
-			conexao = DriverManager.getConnection("jdbc:jtds:sqlserver://127.0.0.1:1433;DatabaseName=db_SIGA;namedPipes=True",
-					"dbreport", "admin");
+			conexao = DriverManager.getConnection("jdbc:jtds:sqlserver://127.0.0.1:1433;DatabaseName=db_SIGA;namedPipes=True");
 		}
 		catch (ClassNotFoundException | SQLException e) 
 		{
