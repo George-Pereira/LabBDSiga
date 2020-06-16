@@ -54,7 +54,7 @@
 				{
 					%><div align="center" class="tabelaChamada">
 						<form action="insereFaltas" method="post">
-							<table width="60%">
+							<table>
 								<thead>
 									<tr align="center" style="padding:50px">
 										<th>RA</th>
@@ -73,8 +73,7 @@
 										<td>
 										<% 
 										if (disciplina.getNaulas() != 40)
-										{
-										%>
+										{%>
 											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
 											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
 										<%
@@ -110,7 +109,7 @@
 			}
 		%>
 	</div>
-	<script type="text/javascript" src=\"script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 	
 </body>
 </html>
