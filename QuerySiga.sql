@@ -28,8 +28,16 @@ create table disciplina (
 
 -- TIPO: P1, P2, P3
 create table avaliacao (
-	codigo int identity primary key,
-	tipo char(2))
+	codigo int primary key,
+	tipo char(100))
+
+-- Avaliacao de cada disciplina
+create table disciplina_avaliacao (
+	cod_disciplina varchar(8),
+	cod_avaliacao int,
+	CONSTRAINT pk_discAvaliacao primary key(cod_disciplina, cod_avaliacao),
+	foreign key (cod_disciplina) references disciplina(codigo),
+	foreign key (cod_avaliacao) references avaliacao(codigo))
 	
 	
 -- MATRICULA DO ALUNO EM UMA MATERIA
@@ -84,9 +92,51 @@ insert into disciplina values
 select * from avaliacao
 -- TODAS AS AVALIACOES
 insert into avaliacao values
-('P1'),
-('P2'),
-('P3')
+(1,'P1'),
+(2,'P2'),
+(3,'P3'),
+(4,'T'),
+(5,'Exame Final'),
+(6,'Pré-Exame'),
+(7,'Monografia Completa'),
+(8,'Monografia Resumida')
+
+
+
+insert into disciplina_avaliacao values
+('4203-010', 1),
+('4203-010', 2),
+('4203-010', 4),
+('4203-010', 5),
+('4203-020', 1),
+('4203-020', 2),
+('4203-020', 4),
+('4203-020', 5),
+('4208-010', 1),
+('4208-010', 2),
+('4208-010', 4),
+('4208-010', 5),
+('4226-004', 1),
+('4226-004', 2),
+('4226-004', 4),
+('4226-004', 5),
+('4213-003', 1),
+('4213-003', 2),
+('4213-003', 4),
+('4213-003', 5),
+('4213-003', 6),
+('4233-005', 1),
+('4233-005', 2),
+('4233-005', 3),
+('4233-005', 5),
+('5005-220', 7),
+('5005-220', 8),
+('5005-220', 5)
+
+select a.codigo, a.tipo from avaliacao a inner join disciplina_avaliacao da on da.cod_avaliacao = a.codigo
+										 inner join disciplina d on d.codigo = da.cod_disciplina 
+										 where da.cod_disciplina = '4213-003'
+
 
 -- ALUNOS
 insert into aluno values
@@ -97,6 +147,13 @@ insert into aluno values
 ('1110481812012', 'José Luis dos Santos'),
 ('1110481812033', 'Jonathas Moreira de Amorim Lopes'),
 ('1110481812031', 'Leandro Colevati dos Santos')
+
+INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
+('1110481812034', '4203-010'),
+('1110481812022', '4203-010'),
+('1110481812012', '4203-010'),
+('1110481812033', '4203-010'),
+('1110481812031', '4203-010')
 
 -- PROCEDURE PARA INSERIR NOTA COM O PESO
 create procedure sp_insereNota (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @codigo_avaliacao int, @nota decimal(4,2), @peso decimal(4,2))
@@ -160,6 +217,8 @@ N3		DECIMAL(4,2)
 )
 DECLARE	@*/
 
+
+
 CREATE TRIGGER t_protegerDisciplinas ON disciplina
 FOR UPDATE, DELETE
 AS
@@ -170,10 +229,58 @@ AS
 		ROLLBACK TRANSACTION
 		RAISERROR('Não é permitido alterar/deletar nenhum registro de Disciplinas', 16, 1)
 	END
+
+---- UDF COM CURSOR - GERAR MEDIAS ----
+
+CREATE FUNCTION fn_Notas(@codDisciplina varchar(10))
+RETURNS @tabela table(RA_Aluno varchar(13),
+					  Nome_Aluno varchar(100),
+					  Nota1 decimal(4,2),
+					  Nota2 decimal(4,2),
+					  Media_Final decimal(4,2))
+as
+BEGIN
+	DECLARE cur_Media CURSOR FOR
+		SELECT * from aluno a inner join matricula mat on mat.ra_aluno = a.ra where mat.codigo_disciplina = @codDisciplina
+
+
+	RETURN
+END
+
+
 --------- TESTES ------------
 
 delete aluno
 select * from aluno
 
 delete notas
+
+delete disciplina where codigo = 'a'
+
+
+select * from notas
+
+select * from faltas
+delete faltas
+
+
+
+select a.nome, CONVERT(decimal(7,1), SUM(n.nota*n.peso)) as Media_Final from notas n inner join disciplina d on d.codigo = n.codigo_disciplina
+									   inner join aluno a on a.ra = n.ra_aluno where d.codigo = '5005-220' group by a.nome
+
+
+
+DECLARE @nota decimal(7,2)
+SET @nota = SELECT CONVERT(decimal(7,1), SUM(n.nota*n.peso)) from
+IF (@nota > 10)
+BEGIN
+	SET @nota = 10
+END
+select a.ra, a.nome, CONVERT(decimal(7,1), SUM(n.nota*n.peso)) as MediaFinal 
+from notas n inner join disciplina d on d.codigo = n.codigo_disciplina
+	inner join aluno a on a.ra = n.ra_aluno 
+where d.codigo = '5005-220' group by a.nome, a.ra
+
+
+
 
