@@ -29,7 +29,7 @@ create table disciplina (
 -- TIPO: P1, P2, P3
 create table avaliacao (
 	codigo int primary key,
-	tipo char(100))
+	tipo varchar(20))
 
 -- Avaliacao de cada disciplina
 create table disciplina_avaliacao (
@@ -207,18 +207,8 @@ INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
 ('1110481812034', '4203-020'),
 ('1110481812043', '4203-010'),
 ('1110481812033', '4203-020')
-/*CREATE FUNCTION fn_listaNotas(@cod_disc VARCHAR(8))
-RETURNS @tabela TABLE(
-ra_aluno		VARCHAR(13),
-nome_aluno		VARCHAR(100),
-N1		DECIMAL(4,2),
-N2		DECIMAL(4,2),
-N3		DECIMAL(4,2)
-)
-DECLARE	@*/
 
-
-
+---- G
 CREATE TRIGGER t_protegerDisciplinas ON disciplina
 FOR UPDATE, DELETE
 AS
@@ -231,56 +221,90 @@ AS
 	END
 
 ---- UDF COM CURSOR - GERAR MEDIAS ----
-
+---- C
 CREATE FUNCTION fn_Notas(@codDisciplina varchar(10))
 RETURNS @tabela table(RA_Aluno varchar(13),
 					  Nome_Aluno varchar(100),
 					  Nota1 decimal(4,2),
 					  Nota2 decimal(4,2),
-					  Media_Final decimal(4,2))
+					  Nota3 decimal(4,2),
+					  Media_Final decimal(4,2),
+					  Situacao varchar(20))
 as
 BEGIN
+	DECLARE @ra varchar(20),
+			@nome_aluno varchar(150),
+			@Media_Final decimal(7,2)
 	DECLARE cur_Media CURSOR FOR
-		SELECT * from aluno a inner join matricula mat on mat.ra_aluno = a.ra where mat.codigo_disciplina = @codDisciplina
-
-
+		SELECT a.ra, a.nome from aluno a inner join matricula mat on mat.ra_aluno = a.ra where mat.codigo_disciplina = @codDisciplina
+	OPEN cur_Media
+	FETCH NEXT FROM cur_Media INTO @ra, @nome_aluno
+	While @@FETCH_STATUS = 0
+	BEGIN
+		SET @Media_Final = (select CONVERT(decimal(7,1), SUM(n.nota*n.peso)) 
+			from notas n inner join disciplina d on d.codigo = n.codigo_disciplina 
+			inner join aluno a on a.ra = n.ra_aluno where d.codigo = @codDisciplina AND n.ra_aluno = @ra AND n.codigo_avaliacao != 5 AND n.codigo_avaliacao != 6)
+		INSERT INTO @tabela(RA_Aluno, Nome_Aluno, Media_Final) VALUES (@ra, @nome_aluno, @Media_Final)
+		DECLARE @nota decimal(7,2),
+				@codigo_avaliacao int
+		DECLARE cur_Notas CURSOR FOR
+			SELECT n.nota, n.codigo_avaliacao FROM notas n where n.ra_aluno = @ra and n.codigo_disciplina = @codDisciplina order by codigo_avaliacao
+		OPEN cur_Notas
+		FETCH NEXT FROM cur_Notas into @nota, @codigo_avaliacao
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+			------------------------- COLOCA A SITUAÇÂO E VERIFICA SE FEZ O EXAME FINAL OU PRE EXAME
+			DECLARE @preExame decimal(7,2),
+					@ExameFinal decimal(7,2),
+					@pesoExam decimal(7,2)
+			IF (@codigo_avaliacao = 6)
+			BEGIN
+				SELECT @preExame = n.nota, @pesoExam = n.peso from notas n where n.ra_aluno = @ra AND n.codigo_disciplina = @codDisciplina AND n.codigo_avaliacao = 6
+				UPDATE @tabela SET Media_Final = Media_Final + (@preExame * @pesoExam) where RA_Aluno = @ra
+			END	
+			ELSE
+			BEGIN
+				IF(@codigo_avaliacao = 5)
+				BEGIN
+					SELECT @ExameFinal = n.nota, @pesoExam = n.peso from notas n where n.ra_aluno = @ra AND n.codigo_disciplina = @codDisciplina AND n.codigo_avaliacao = 5
+					UPDATE @tabela SET Media_Final = (Media_Final + @ExameFinal) / 2 where RA_Aluno = @ra
+				END
+			END
+			UPDATE @tabela SET Situacao = 'APROVADO' WHERE Media_Final >= 6
+			UPDATE @tabela SET Situacao = 'REPROVADO' WHERE Media_Final < 6
+	------------------------------------------- PREENCHE AS COLUNAS
+			IF ((SELECT Nota1 from @tabela where RA_Aluno = @ra AND @codigo_avaliacao <> 5 AND @codigo_avaliacao <> 6) IS NULL)
+			BEGIN
+				UPDATE @tabela SET Nota1 = @nota where RA_Aluno = @ra
+			END
+			ELSE
+			BEGIN
+				IF((SELECT Nota2 from @tabela where RA_Aluno = @ra AND @codigo_avaliacao <> 5 AND @codigo_avaliacao <> 6) is null)
+				BEGIN
+					UPDATE @tabela SET Nota2 = @nota where RA_Aluno = @ra
+				END
+				ELSE
+				BEGIN
+					IF((SELECT Nota3 from @tabela where RA_Aluno = @ra AND @codigo_avaliacao <> 5 AND @codigo_avaliacao <> 6) IS NULL)
+					BEGIN
+						UPDATE @tabela SET Nota3 = @nota where RA_Aluno = @ra
+					END
+				END
+			END
+			FETCH NEXT FROM cur_Notas into @nota, @codigo_avaliacao
+		END
+		CLOSE cur_Notas
+		DEALLOCATE cur_Notas
+		FETCH NEXT FROM cur_Media INTO @ra, @nome_aluno
+	END
+	CLOSE cur_Media
+	DEALLOCATE cur_Media
 	RETURN
 END
 
+select * from fn_Notas('5005-220')
+
+select * from notas where ra_aluno = '196'
+
 
 --------- TESTES ------------
-
-delete aluno
-select * from aluno
-
-delete notas
-
-delete disciplina where codigo = 'a'
-
-
-select * from notas
-
-select * from faltas
-delete faltas
-
-
-
-select a.nome, CONVERT(decimal(7,1), SUM(n.nota*n.peso)) as Media_Final from notas n inner join disciplina d on d.codigo = n.codigo_disciplina
-									   inner join aluno a on a.ra = n.ra_aluno where d.codigo = '5005-220' group by a.nome
-
-
-
-DECLARE @nota decimal(7,2)
-SET @nota = SELECT CONVERT(decimal(7,1), SUM(n.nota*n.peso)) from
-IF (@nota > 10)
-BEGIN
-	SET @nota = 10
-END
-select a.ra, a.nome, CONVERT(decimal(7,1), SUM(n.nota*n.peso)) as MediaFinal 
-from notas n inner join disciplina d on d.codigo = n.codigo_disciplina
-	inner join aluno a on a.ra = n.ra_aluno 
-where d.codigo = '5005-220' group by a.nome, a.ra
-
-
-
-

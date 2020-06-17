@@ -18,7 +18,7 @@
 		<div class="navBar">
 			<ul>
 			  <li><img alt="" src="./img/logosiga.png" id="logo"></li>
-			  <li><a href="#home">Home</a></li>
+			  <li><a href="./index.jsp">Home</a></li>
 			  <li><a href="./selchamada.jsp">Chamada</a></li>
 			  <li><a href="./registrarNota.jsp">Registrar Nota</a></li>
 			  <li class="dropdown">

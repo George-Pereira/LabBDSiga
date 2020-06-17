@@ -74,13 +74,13 @@
 										<% 
 										if (disciplina.getNaulas() != 40)
 										{%>
-											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
-											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+											<input type="checkbox" checked value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+											<input type="checkbox" checked value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
 										<%
 										}
 										%>
-											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
-											<input type="checkbox" value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+											<input type="checkbox" checked value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
+											<input type="checkbox" checked value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">
 										</td>
 									</tr>
 								<%
@@ -109,7 +109,7 @@
 			}
 		%>
 	</div>
-	<script type="text/javascript" src="script.js"></script>
+	<script type="text/javascript" src="./script.js"></script>
 	
 </body>
 </html>

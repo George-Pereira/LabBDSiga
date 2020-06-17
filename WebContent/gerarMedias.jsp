@@ -18,7 +18,7 @@
 		  <li><img alt="" src="./img/logosiga.png" id="logo"></li>
 		  <li><a href="./index.jsp">Home</a></li>
 		  <li><a href="./selchamada.jsp">Chamada</a></li>
-		  <li><a href="#">Registrar Nota</a></li>
+		  <li><a href="./registrarNota.jsp">Registrar Nota</a></li>
 		  <li class="dropdown">
 		    <a class="dropbtn active">Relatórios</a>
 		    <div class="dropdown-content">
