@@ -71,7 +71,7 @@
 										<td><input type="text" id="raAluno<%=td%>" name="raAluno<%=td%>" required readonly value="<%=a.getRa()%>"></td>
 										<td><%=a.getNome()%></td>
 										<td>
-										<% 
+										<% 	
 										if (disciplina.getNaulas() != 40)
 										{%>
 											<input type="checkbox" checked value="1" name="presencaLinha<%=td%>" id="presencaLinha<%=td%>" onchange="tdGanhaFoco(<%=td%>)" onblur="tdPerdeFoco(<%=td%>)">

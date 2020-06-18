@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.projetosiga.entity.Media"%>
+<%@page import="com.projetosiga.dao.DaoNotas"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="com.projetosiga.dao.DaoDisciplina"%>
 <%@page import="com.projetosiga.entity.Disciplina"%>
@@ -44,8 +47,61 @@
 					}
 				  %>
 			  </select><br><br>
-			  <input type="submit" value="Gerar Relatório" style="color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: none; border-radius: 20px">
+			  <button type="submit" name="cmd" value="relatorioTela" style="color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: 2px solid black; border-radius: 20px; width: 120px; height: 30px;">Mostrar em Tela</button>
+			  <button type="submit" name="cmd" value="relatorioPDF" style="color: white; font-family: Helvetica,Arial,sans-serif; background-color: red; border: 2px solid black; border-radius: 20px; width: 120px; height: 30px;">Gerar PDF</button>
 		</form> 
+		
+		<div style="padding-top: 50px;" align="center">
+			<%
+				String cod_disc = request.getParameter("disciplina");
+				if (cod_disc != null){
+					DaoNotas daoNotas = new DaoNotas();
+					List<Media> medias = new ArrayList<Media>();
+					medias = daoNotas.relatorioMedias(cod_disc);
+					if (!medias.isEmpty()) {
+						%>
+						<table border="1" title="Relatório de Médias" >
+							<thead>
+								<tr align="center" style="padding:50px; border: 2px solid black; background-color: white;">
+									<th><h2>RA</h2></th>
+									<th><h2>Nome</h2></th>
+									<th><h2>Nota 1</h2></th>
+									<th><h2>Nota 2</h2></th>
+									<th><h2>Nota 3</h2></th>
+									<th><h2>Média</h2></th>
+									<th><h2>Situação</h2></th>
+							</thead>
+							<tbody>
+							<%
+								for (Media media : medias) {
+									%>
+										<tr class="tdRelatorio" align="center" style="background-color: white;">
+											<td width="200"><h3><%=media.getRA() %></h3></td>
+											<td width="350"><h3><%=media.getNomeAluno() %></h3></td>
+											<td width="90"><h3><%=media.getNota1() %></h3></td>
+											<td width="90"><h3><%=media.getNota2() %></h3></td>
+											<td width="90"><h3><%=media.getNota3() %></h3></td>
+											<td width="90"><h3><%=media.getMedia() %></h3></td>
+											<td width="140"><h3><%=media.getSituacao() %></h3></td>
+										</tr>
+									<%
+								}
+						 
+							%>
+							</tbody>
+						</table>
+						<%
+					} else {
+						%>
+						<div align="center" style="margin: 100px 300px;">
+							<h1>NÃO HÁ ALUNOS MATRICULADOS NESTA DISCIPLINA!</h1><br>
+							<button style="width: 100px; height: 50px" onclick="location.href='./gerarMedias.jsp'">Voltar</button>
+						</div>
+						<%
+					}
+				 }
+			%>
+		</div>
 	</div>
 </body>
 </html>

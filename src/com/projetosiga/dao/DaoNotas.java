@@ -3,8 +3,12 @@ package com.projetosiga.dao;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.projetosiga.entity.Media;
 import com.projetosiga.entity.Notas;
 
 public class DaoNotas implements IntDaoNotas {
@@ -38,6 +42,28 @@ public class DaoNotas implements IntDaoNotas {
 		stmt.setInt(5, nota.getCodigo_avaliacao());
 		stmt.execute();
 		stmt.close();
+	}
+	
+	public List<Media> relatorioMedias(String cod_disc) throws SQLException {
+		String sql = "SELECT * from fn_Notas(?) order by Nome_Aluno";
+		PreparedStatement stmt = c.prepareStatement(sql);
+		stmt.setString(1, cod_disc);
+		ResultSet rs = stmt.executeQuery();
+		List<Media> lst = new ArrayList<Media>();
+		while(rs.next()) {
+			Media m = new Media();
+			m.setRA(rs.getString(1));
+			m.setNomeAluno(rs.getString(2));
+			m.setNota1(rs.getDouble(3));
+			m.setNota2(rs.getDouble(4));
+			m.setNota3(rs.getDouble(5));
+			m.setMedia(rs.getDouble(6));
+			m.setSituacao(rs.getString(7));
+			lst.add(m);
+		}
+		stmt.close();
+		rs.close();
+		return lst;
 	}
 	
 }
