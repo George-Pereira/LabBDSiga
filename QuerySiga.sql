@@ -315,6 +315,134 @@ BEGIN
 	RETURN
 END
 
+CREATE FUNCTION fn_relatorioFaltas(@cod_disc VARCHAR(8))
+RETURNS @tabela TABLE
+(
+	nome_aluno		VARCHAR(100),
+	ra_aluno		VARCHAR(13),
+	presencas1		CHAR(4),
+	presencas2		CHAR(4),
+	presencas3		CHAR(4),
+	presencas4		CHAR(4),
+	presencas5		CHAR(4),
+	presencas6		CHAR(4),
+	presencas7		CHAR(4),
+	presencas8		CHAR(4),
+	presencas9		CHAR(4),
+	presencas10		CHAR(4),
+	presencas11		CHAR(4),
+	presencas12		CHAR(4),
+	presencas13		CHAR(4),
+	presencas14		CHAR(4),
+	presencas15		CHAR(4),
+	presencas16		CHAR(4),
+	presencas17		CHAR(4),
+	presencas18		CHAR(4),
+	presencas19		CHAR(4),
+	presencas20		CHAR(4),
+	aula1			DATE,
+	aula2			DATE,
+	aula3			DATE,
+	aula4			DATE,
+	aula5			DATE,
+	aula6			DATE,
+	aula7			DATE,
+	aula8			DATE,
+	aula9			DATE,
+	aula10			DATE,
+	aula11			DATE,
+	aula12			DATE,
+	aula13			DATE,
+	aula14			DATE,
+	aula15			DATE,
+	aula16			DATE,
+	aula17			DATE,
+	aula18			DATE,
+	aula19			DATE,
+	aula20			DATE,
+	tot_faltas		INT,
+	nome_disc		VARCHAR(100)
+)
+AS
+BEGIN
+	DECLARE @ra_aluno		VARCHAR(13),
+			@nome_aluno		VARCHAR(100),
+			@presenca		INT,
+			@dia_presenca   DATE,
+			@coluna			INT,
+			@totFaltas		INT
+	DECLARE c_alunos CURSOR FOR SELECT a.ra, a.nome FROM aluno a INNER JOIN matricula mt ON a.ra = mt.ra_aluno INNER JOIN disciplina disc ON mt.codigo_disciplina = disc.codigo WHERE disc.codigo = @cod_disc
+	OPEN c_alunos
+	FETCH NEXT FROM c_alunos INTO @ra_aluno, @nome_aluno
+	WHILE(@@FETCH_STATUS = 0)
+	BEGIN
+		INSERT INTO @tabela(nome_aluno, ra_aluno) VALUES
+		(@nome_aluno, @ra_aluno)
+		DECLARE c_presencas CURSOR FOR SELECT presencas, dia FROM faltas ft INNER JOIN aluno a ON a.ra = ft.ra_aluno WHERE a.ra = @ra_aluno ORDER BY ft.dia
+		OPEN c_presencas
+		FETCH NEXT FROM c_presencas INTO @presenca, @dia_presenca
+		SET @coluna = 1
+			WHILE(@@FETCH_STATUS = 0)
+			BEGIN
+				UPDATE @tabela SET presencas1 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND presencas1 IS NULL
+				UPDATE @tabela SET presencas2 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 2 AND presencas2 IS NULL
+				UPDATE @tabela SET presencas3 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 3 AND presencas3 IS NULL
+				UPDATE @tabela SET presencas4 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 4 AND presencas4 IS NULL
+				UPDATE @tabela SET presencas5 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 5 AND presencas5 IS NULL
+				UPDATE @tabela SET presencas6 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 6 AND presencas6 IS NULL
+				UPDATE @tabela SET presencas7 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 7 AND presencas7 IS NULL
+				UPDATE @tabela SET presencas8 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 8 AND presencas8 IS NULL
+				UPDATE @tabela SET presencas9 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 9 AND presencas9 IS NULL
+				UPDATE @tabela SET presencas10 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 10 AND presencas10 IS NULL
+				UPDATE @tabela SET presencas11 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 11 AND presencas11 IS NULL
+				UPDATE @tabela SET presencas12 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 12 AND presencas12 IS NULL
+				UPDATE @tabela SET presencas13 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 13 AND presencas13 IS NULL
+				UPDATE @tabela SET presencas14 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 14 AND presencas14 IS NULL
+				UPDATE @tabela SET presencas15 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 15 AND presencas15 IS NULL
+				UPDATE @tabela SET presencas16 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 16 AND presencas16 IS NULL
+				UPDATE @tabela SET presencas17 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 17 AND presencas17 IS NULL
+				UPDATE @tabela SET presencas18 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 18 AND presencas18 IS NULL
+				UPDATE @tabela SET presencas19 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 19 AND presencas19 IS NULL
+				UPDATE @tabela SET presencas20 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 20 AND presencas20 IS NULL
+				UPDATE @tabela SET aula1 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula1 IS NULL
+				UPDATE @tabela SET aula2 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula2 IS NULL
+				UPDATE @tabela SET aula3 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula3 IS NULL
+				UPDATE @tabela SET aula4 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula4 IS NULL
+				UPDATE @tabela SET aula5 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula5 IS NULL
+				UPDATE @tabela SET aula6 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula6 IS NULL
+				UPDATE @tabela SET aula7 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula7 IS NULL
+				UPDATE @tabela SET aula8 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula8 IS NULL
+				UPDATE @tabela SET aula9 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula9 IS NULL
+				UPDATE @tabela SET aula10 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula10 IS NULL
+				UPDATE @tabela SET aula11 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula11 IS NULL
+				UPDATE @tabela SET aula12 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula12 IS NULL
+				UPDATE @tabela SET aula13 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula13 IS NULL
+				UPDATE @tabela SET aula14 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula14 IS NULL
+				UPDATE @tabela SET aula15 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula15 IS NULL
+				UPDATE @tabela SET aula16 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula16 IS NULL
+				UPDATE @tabela SET aula17 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula17 IS NULL
+				UPDATE @tabela SET aula18 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula18 IS NULL
+				UPDATE @tabela SET aula19 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula19 IS NULL
+				UPDATE @tabela SET aula20 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula20 IS NULL
+				UPDATE @tabela SET aula1 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula1 IS NULL
+				UPDATE @tabela SET tot_faltas = 0 WHERE ra_aluno = @ra_aluno AND tot_faltas IS NULL
+				UPDATE @tabela SET tot_faltas = tot_faltas + @presenca WHERE ra_aluno = @ra_aluno
+				SET @coluna = @coluna + 1
+				FETCH NEXT FROM c_presencas INTO @presenca, @dia_presenca
+			END
+		CLOSE c_presencas
+		DEALLOCATE c_presencas
+		FETCH NEXT FROM c_alunos INTO @ra_aluno, @nome_aluno
+	END
+	CLOSE c_alunos
+	DEALLOCATE c_alunos
+	UPDATE @tabela SET nome_disc = (SELECT nome + ' - ' + CASE WHEN turno = 'T' THEN 'TARDE' WHEN turno = 'N' THEN 'NOITE' END FROM disciplina WHERE codigo = @cod_disc)
+	RETURN
+END
+SELECT * FROM fn_relatorioFaltas('4203-010')
+SELECT * FROM faltas
 --------- TESTES ------------
 
 SELECT * from fn_Notas('4208-010') order by Nome_Aluno
+
+

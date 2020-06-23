@@ -1,18 +1,21 @@
 package com.projetosiga.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.LinkedList;
-import java.util.List;
-
+import java.util.HashMap;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.projetosiga.dao.DaoFaltas;
-import com.projetosiga.entity.Faltas;
+import com.projetosiga.dao.DaoGenerica;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.util.JRLoader;
 @WebServlet("/relatoriofaltas")
 public class ServletRelFaltas extends HttpServlet 
 {
@@ -27,41 +30,47 @@ public class ServletRelFaltas extends HttpServlet
 		construirRelatorio(req, resp);
 	}
 
-	private void construirRelatorio(HttpServletRequest req, HttpServletResponse resp) 
+	private void construirRelatorio(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException 
 	{
-		String cod_disc = req.getParameter("disciplina");
-		DaoFaltas dao = new DaoFaltas();
-		List<Faltas> chamadaClasse = new LinkedList<Faltas>();
-		chamadaClasse = dao.construirRelatorio();
-		resp.setContentType("text/html");
-		StringBuffer sb = new StringBuffer();
-		try 
+		String codisc = req.getParameter("disciplina");
+		String caminho = "WEB-INF/report/relatorioFaltas.jasper";
+		String opc = req.getParameter("cmd");
+		if(opc.equals("pdf")) 
 		{
-			PrintWriter out = resp.getWriter();
-			sb.append("<header>");
-		    sb.append("<div class=\"navBar\">");
-		    sb.append("<ul>");
-		    sb.append("<li><img src=\"./img/logosiga.png\" id=\"logo\"></li>");
-		    sb.append("<li><a href=\"./index.jsp\">Home</a></li>");
-		    sb.append("<li><a href=\"./selchamada.jsp\">Chamada</a></li>");
-		    sb.append("<li><a href=\"./registrarNota.jsp\">Registrar Nota</a></li>");
-		    sb.append("<li class=\"dropdown\">");
-		    sb.append("<a class=\"dropbtn active\" >Relatórios</a>");
-		    sb.append("<div class=\"dropdown-content\">");
-		    sb.append("<a href=\"./gerarMedias.jsp\">Gerar Médias</a>");
-		    sb.append("<a href=\"./gerarFaltas.jsp\" class=\"active\">Gerar Faltas</a>");
-		    sb.append("</div>");
-		    sb.append("</li>");
-		    sb.append("</ul>");
-		    sb.append("</div>");
-		    sb.append("</header>");
-		    sb.append("<script type=\"text/javascript\" src=\"script.js\"></script>");
-			sb.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"./style.css\">");
-		    out.println(sb);
+			HashMap<String, Object> content = new HashMap<String, Object>();
+			content.put("codisc", codisc);
+			byte [] repo = null;
+			ServletContext contextServ = getServletContext();
+			try 
+			{
+				JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile(contextServ.getRealPath(caminho));
+				repo = JasperRunManager.runReportToPdf(relatorio, content, new DaoGenerica().getConnection());
+			}
+			catch(JRException e) 
+			{
+				e.printStackTrace();
+			}
+			finally 
+			{
+				if(repo != null) 
+				{
+					resp.setContentType("application/pdf");
+					resp.setContentLength(repo.length);
+					ServletOutputStream sos = resp.getOutputStream();
+					sos.write(repo);
+					sos.flush();
+					sos.close();
+				}
+				else 
+				{
+					RequestDispatcher dispatcher = req.getRequestDispatcher("./gerarFaltas.jsp");
+					dispatcher.forward(req, resp);
+				}
+			}
 		}
-		catch (IOException e) 
+		else 
 		{
-			e.printStackTrace();
+			resp.sendRedirect("./gerarFaltas.jsp?disciplina=" + codisc);
 		}
 	}
 }
