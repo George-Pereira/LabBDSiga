@@ -28,8 +28,8 @@
 	</header>
 </body>
 	<div align="center">
-		<p><a href="//www.saopaulo.sp.gov.br/"><img alt="image" src="./img/brasao.png" id="brasaosp" height="200px" width="200px"></a>
-		<a href="//www.cps.sp.gov.br/"><img alt="image" src="./img/cpslogotrans.png" id="logocps" height="200px" width="225px"></a>
+		<p><a href="//www.saopaulo.sp.gov.br/" target="_blank"><img alt="image" src="./img/brasao.png" id="brasaosp" height="200px" width="200px"></a>
+		<a href="//www.cps.sp.gov.br/" target="_blank"><img alt="image" src="./img/cpslogotrans.png" id="logocps" height="200px" width="225px"></a>
 		</p>
 	</div>
 </html>
