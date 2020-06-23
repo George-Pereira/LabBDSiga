@@ -29,7 +29,7 @@ public class ServletRelMedias extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cod_disc = request.getParameter("codigo_disciplina");
-		String jasper = "WEB-INF/report/RelatorioMedias.jasper";
+		String jasper = "WEB-INF/report/RelMedias.jasper";
 		String cmd = request.getParameter("cmd");
 		if (cmd.equals("relatorioPDF")) {
 			HashMap<String, Object> param = new HashMap<String, Object>();
@@ -40,7 +40,7 @@ public class ServletRelMedias extends HttpServlet {
 				JasperReport relatorio = (JasperReport) JRLoader.loadObjectFromFile(context.getRealPath(jasper));
 				bytes = JasperRunManager.runReportToPdf(relatorio, param, new DaoGenerica().getConnection());
 			} catch (JRException e) {
-				e.printStackTrace();;
+				e.printStackTrace();
 			} finally {
 				if (bytes != null) {
 					response.setContentType("application/pdf");

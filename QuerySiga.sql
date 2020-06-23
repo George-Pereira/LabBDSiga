@@ -225,11 +225,25 @@ AS
 CREATE FUNCTION fn_Notas(@codDisciplina varchar(10))
 RETURNS @tabela table(RA_Aluno varchar(13),
 					  Nome_Aluno varchar(100),
-					  Nota1 decimal(4,2),
-					  Nota2 decimal(4,2),
-					  Nota3 decimal(4,2),
+					  P1 decimal(4,2),
+					  P2 decimal(4,2),
+					  P3 decimal(4,2),
+					  T decimal(4,2),
+					  EF decimal(4,2),
+					  PE decimal(4,2),
+					  MC decimal(4,2),
+					  MR decimal(4,2),
 					  Media_Final decimal(4,2),
-					  Situacao varchar(20))
+					  Situacao varchar(20),
+					  Nome_Disciplina varchar(150),
+					  SP1 decimal(7,2),
+					  SP2 decimal(7,2),
+					  SP3 decimal(7,2),
+					  ST decimal(7,2),
+					  SEF decimal(7,2),
+					  SPE decimal(7,2),
+					  SMC decimal(7,2),
+					  SMR decimal(7,2))
 as
 BEGIN
 	DECLARE @ra varchar(20),
@@ -273,24 +287,14 @@ BEGIN
 			UPDATE @tabela SET Situacao = 'APROVADO' WHERE Media_Final >= 6
 			UPDATE @tabela SET Situacao = 'REPROVADO' WHERE Media_Final < 6
 	------------------------------------------- PREENCHE AS COLUNAS
-			IF ((SELECT Nota1 from @tabela where RA_Aluno = @ra AND @codigo_avaliacao <> 5 AND @codigo_avaliacao <> 6) IS NULL)
-			BEGIN
-				UPDATE @tabela SET Nota1 = @nota where RA_Aluno = @ra
-			END
-			ELSE
-			BEGIN
-				IF((SELECT Nota2 from @tabela where RA_Aluno = @ra AND @codigo_avaliacao <> 5 AND @codigo_avaliacao <> 6) is null)
-				BEGIN
-					UPDATE @tabela SET Nota2 = @nota where RA_Aluno = @ra
-				END
-				ELSE
-				BEGIN
-					IF((SELECT Nota3 from @tabela where RA_Aluno = @ra AND @codigo_avaliacao <> 5 AND @codigo_avaliacao <> 6) IS NULL)
-					BEGIN
-						UPDATE @tabela SET Nota3 = @nota where RA_Aluno = @ra
-					END
-				END
-			END
+			UPDATE @tabela SET P1 = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 1
+			UPDATE @tabela SET P2 = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 2
+			UPDATE @tabela SET P3 = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 3
+			UPDATE @tabela SET T = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 4
+			UPDATE @tabela SET EF = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 5
+			UPDATE @tabela SET PE = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 6
+			UPDATE @tabela SET MC = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 7
+			UPDATE @tabela SET MR = @nota WHERE RA_Aluno = @ra AND @codigo_avaliacao = 8
 			FETCH NEXT FROM cur_Notas into @nota, @codigo_avaliacao
 		END
 		CLOSE cur_Notas
@@ -299,12 +303,18 @@ BEGIN
 	END
 	CLOSE cur_Media
 	DEALLOCATE cur_Media
+	UPDATE @tabela SET Nome_Disciplina = (SELECT nome+' - '+turno from disciplina where codigo = @codDisciplina)
+	UPDATE @tabela SET SP1 = (SELECT SUM(P1) from @tabela),
+					   SP2 = (SELECT SUM(P2) from @tabela),
+					   SP3 = (SELECT SUM(P3) from @tabela),
+					   ST = (SELECT SUM(T) from @tabela),
+					   SEF = (SELECT SUM(EF) from @tabela),
+					   SPE = (SELECT SUM(PE) from @tabela),
+					   SMC = (SELECT SUM(MC) from @tabela),
+					   SMR = (SELECT SUM(MR) from @tabela)
 	RETURN
 END
 
-select * from fn_Notas('5005-220')
-
-select * from notas where ra_aluno = '196'
-
-
 --------- TESTES ------------
+
+SELECT * from fn_Notas('4208-010') order by Nome_Aluno

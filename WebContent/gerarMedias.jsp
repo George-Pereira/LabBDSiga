@@ -59,15 +59,28 @@
 					List<Media> medias = new ArrayList<Media>();
 					medias = daoNotas.relatorioMedias(cod_disc);
 					if (!medias.isEmpty()) {
+						Double SP1 = medias.get(0).getSP1(),
+								SP2 = medias.get(0).getSP2(),
+								SP3 = medias.get(0).getSP3(),
+								ST = medias.get(0).getST(),
+								SEF = medias.get(0).getSEF(),
+								SPE = medias.get(0).getSPE(),
+								SMC = medias.get(0).getSMC(),
+								SMR = medias.get(0).getSMR();
 						%>
 						<table border="1" title="Relatório de Médias" >
 							<thead>
 								<tr align="center" style="padding:50px; border: 2px solid black; background-color: white;">
 									<th><h2>RA</h2></th>
 									<th><h2>Nome</h2></th>
-									<th><h2>Nota 1</h2></th>
-									<th><h2>Nota 2</h2></th>
-									<th><h2>Nota 3</h2></th>
+									<%if(SP1 > 0) %><th><h2>P1</h2></th>
+									<%if(SP2 > 0) %><th><h2>P2</h2></th>
+									<%if(SP3 > 0) %><th><h2>P3</h2></th>
+									<%if(ST > 0) %><th><h2>T</h2></th>
+									<%if(SEF > 0) %><th><h2>Exame Final</h2></th>
+									<%if(SPE > 0) %><th><h2>Pre Exame</h2></th>
+									<%if(SMC > 0) %><th><h2>Monografia Completa</h2></th>
+									<%if(SMR > 0) %><th><h2>Monografia Resumida</h2></th>
 									<th><h2>Média</h2></th>
 									<th><h2>Situação</h2></th>
 							</thead>
@@ -78,9 +91,14 @@
 										<tr class="tdRelatorio" align="center" style="background-color: white;">
 											<td width="200"><h3><%=media.getRA() %></h3></td>
 											<td width="350"><h3><%=media.getNomeAluno() %></h3></td>
-											<td width="90"><h3><%=media.getNota1() %></h3></td>
-											<td width="90"><h3><%=media.getNota2() %></h3></td>
-											<td width="90"><h3><%=media.getNota3() %></h3></td>
+											<%if(SP1 > 0) {%><td width="90"><h3><%=media.getP1() %></h3></td><%} %>
+											<%if(SP2 > 0) {%><td width="90"><h3><%=media.getP2() %></h3></td><%} %>
+											<%if(SP3 > 0) {%><td width="90"><h3><%=media.getP3() %></h3></td><%} %>
+											<%if(ST > 0) {%><td width="90"><h3><%=media.getT() %></h3></td><%} %>
+											<%if(SEF > 0) {%><td width="90"><h3><%=media.getEF() %></h3></td><%} %>
+											<%if(SPE > 0) {%><td width="90"><h3><%=media.getPE() %></h3></td><%} %>
+											<%if(SMC > 0) {%><td width="90"><h3><%=media.getMC() %></h3></td><%} %>
+											<%if(SMR > 0) {%><td width="90"><h3><%=media.getMR() %></h3></td><%} %>
 											<td width="90"><h3><%=media.getMedia() %></h3></td>
 											<td width="140"><h3><%=media.getSituacao() %></h3></td>
 										</tr>
