@@ -405,26 +405,25 @@ BEGIN
 				UPDATE @tabela SET presencas19 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 19 AND presencas19 IS NULL
 				UPDATE @tabela SET presencas20 = CASE WHEN @presenca = 1 THEN 'PPPF' WHEN  @presenca = 2 THEN 'PPFF' WHEN @presenca = 3 THEN 'PFFF' WHEN @presenca = 4 THEN 'FFFF' WHEN @presenca = 0 THEN 'PPPP' END WHERE ra_aluno = @ra_aluno AND @coluna = 20 AND presencas20 IS NULL
 				UPDATE @tabela SET aula1 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula1 IS NULL
-				UPDATE @tabela SET aula2 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula2 IS NULL
-				UPDATE @tabela SET aula3 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula3 IS NULL
-				UPDATE @tabela SET aula4 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula4 IS NULL
-				UPDATE @tabela SET aula5 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula5 IS NULL
-				UPDATE @tabela SET aula6 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula6 IS NULL
-				UPDATE @tabela SET aula7 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula7 IS NULL
-				UPDATE @tabela SET aula8 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula8 IS NULL
-				UPDATE @tabela SET aula9 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula9 IS NULL
-				UPDATE @tabela SET aula10 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula10 IS NULL
-				UPDATE @tabela SET aula11 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula11 IS NULL
-				UPDATE @tabela SET aula12 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula12 IS NULL
-				UPDATE @tabela SET aula13 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula13 IS NULL
-				UPDATE @tabela SET aula14 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula14 IS NULL
-				UPDATE @tabela SET aula15 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula15 IS NULL
-				UPDATE @tabela SET aula16 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula16 IS NULL
-				UPDATE @tabela SET aula17 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula17 IS NULL
-				UPDATE @tabela SET aula18 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula18 IS NULL
-				UPDATE @tabela SET aula19 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula19 IS NULL
-				UPDATE @tabela SET aula20 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula20 IS NULL
-				UPDATE @tabela SET aula1 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 1 AND aula1 IS NULL
+				UPDATE @tabela SET aula2 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 2 AND aula2 IS NULL
+				UPDATE @tabela SET aula3 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 3 AND aula3 IS NULL
+				UPDATE @tabela SET aula4 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 4 AND aula4 IS NULL
+				UPDATE @tabela SET aula5 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 5 AND aula5 IS NULL
+				UPDATE @tabela SET aula6 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 6 AND aula6 IS NULL
+				UPDATE @tabela SET aula7 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 7 AND aula7 IS NULL
+				UPDATE @tabela SET aula8 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 8 AND aula8 IS NULL
+				UPDATE @tabela SET aula9 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 9 AND aula9 IS NULL
+				UPDATE @tabela SET aula10 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 10 AND aula10 IS NULL
+				UPDATE @tabela SET aula11 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 11 AND aula11 IS NULL
+				UPDATE @tabela SET aula12 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 12 AND aula12 IS NULL
+				UPDATE @tabela SET aula13 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 13 AND aula13 IS NULL
+				UPDATE @tabela SET aula14 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 14 AND aula14 IS NULL
+				UPDATE @tabela SET aula15 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 15 AND aula15 IS NULL
+				UPDATE @tabela SET aula16 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 16 AND aula16 IS NULL
+				UPDATE @tabela SET aula17 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 17 AND aula17 IS NULL
+				UPDATE @tabela SET aula18 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 18 AND aula18 IS NULL
+				UPDATE @tabela SET aula19 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 19 AND aula19 IS NULL
+				UPDATE @tabela SET aula20 = (CONVERT(DATE, @dia_presenca, 103)) WHERE ra_aluno = @ra_aluno AND @coluna = 20 AND aula20 IS NULL
 				UPDATE @tabela SET tot_faltas = 0 WHERE ra_aluno = @ra_aluno AND tot_faltas IS NULL
 				UPDATE @tabela SET tot_faltas = tot_faltas + @presenca WHERE ra_aluno = @ra_aluno
 				SET @coluna = @coluna + 1
