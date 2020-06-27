@@ -441,7 +441,4 @@ END
 SELECT * FROM fn_relatorioFaltas('4203-010')
 SELECT * FROM faltas
 --------- TESTES ------------
-
 SELECT * from fn_Notas('4208-010') order by Nome_Aluno
-
-

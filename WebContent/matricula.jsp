@@ -55,7 +55,7 @@
 			if(msg != null) {
 				session.setAttribute("msg", null);
 				%>
-					<div class="alert alert-success" role="alert"><%= msg%></div>
+					<div class="alert alert-success" role="alert"><%=msg%></div>
 				<%
 			}
 		%>

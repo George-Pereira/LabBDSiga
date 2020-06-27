@@ -74,4 +74,16 @@ public class DaoAluno implements IntDaoAluno {
 		Collections.sort(chamada);
 		return chamada;
 	}
+
+	@Override
+	public void insereAluno(Aluno al) throws SQLException 
+	{
+		String sql = "INSERT INTO aluno (ra, nome) VALUES(?,?)";
+		PreparedStatement stmt = c.prepareStatement(sql);
+		stmt.setString(1, al.getRa());
+		stmt.setString(2, al.getNome());
+		stmt.execute();
+		stmt.close();
+		c.close();
+	}
 }
