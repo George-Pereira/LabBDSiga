@@ -2,22 +2,11 @@ create database db_SIGA
 go
 use db_SIGA
 
--- DROP DE TODAS AS TABELAS
-drop table aluno
-drop table disciplina
-drop table avaliacao
-drop table faltas
-drop table notas
-
-
--- ACREDITO QUE NAO PRECISE FAZER VALIDAÇÂO DO RA
 create table aluno (
 	ra varchar(13) primary key,
 	nome varchar(100))
 
-
 -- FORMATO DO CODIGO: XXXX-XXX
--- SIGLA: SSSXXX (S - caractere) - TEMOS QUE PERGUNTAR AS SIGLAS DAS MATERIAS.
 -- TURNO: M, N, T
 create table disciplina (
 	codigo varchar(8) primary key,
@@ -26,7 +15,7 @@ create table disciplina (
 	turno char(1),
 	num_aulas int)
 
--- TIPO: P1, P2, P3
+-- TIPOS: P1, P2, P3, T, Monografia Completa, Monografia Resumida, Pré-Exame, Exame Final
 create table avaliacao (
 	codigo int primary key,
 	tipo varchar(20))
@@ -63,7 +52,6 @@ create table faltas (
 	foreign key (ra_aluno) references aluno(ra),
 	foreign key (codigo_disciplina) references disciplina(codigo))
 
--- NOTA: fazer a validação se é 0 <= nota <= 10 no JAVA
 create table notas (
 	ra_aluno varchar(13),
 	codigo_disciplina varchar(8),
@@ -76,7 +64,6 @@ create table notas (
 	foreign key (codigo_avaliacao) references avaliacao(codigo))
 
 
-select * from disciplina
 -- TODAS AS DISCIPLINAS
 insert into disciplina values
 ('4203-010', 'Arquitetura e Organização de Computadores', 'AOC001', 'T', 80),
@@ -88,8 +75,6 @@ insert into disciplina values
 ('4233-005', 'Laboratório de Banco de Dados', 'LBD001', 'T', 80),
 ('5005-220', 'Métodos Para a Produção do Conhecimento', 'MPC001' , 'M', 80)
 
-
-select * from avaliacao
 -- TODAS AS AVALIACOES
 insert into avaliacao values
 (1,'P1'),
@@ -101,8 +86,7 @@ insert into avaliacao values
 (7,'Monografia Completa'),
 (8,'Monografia Resumida')
 
-
-
+-- ASSOCIANDO CADA TIPO DE AVALIACAO PARA SUA DISCIPLINA
 insert into disciplina_avaliacao values
 ('4203-010', 1),
 ('4203-010', 2),
@@ -133,29 +117,12 @@ insert into disciplina_avaliacao values
 ('5005-220', 8),
 ('5005-220', 5)
 
-select a.codigo, a.tipo from avaliacao a inner join disciplina_avaliacao da on da.cod_avaliacao = a.codigo
-										 inner join disciplina d on d.codigo = da.cod_disciplina 
-										 where da.cod_disciplina = '4213-003'
 
+---- EXERCICIOS
 
--- ALUNOS
-insert into aluno values
-('1110481812042', 'Fellipe Alves Andrade'),
-('1110481812043', 'Fernando George Pereira'),
-('1110481812034', 'Rafael Antonio Ferreira Borges'),
-('1110481812022', 'João Vitor Sardinha de Arruda'),
-('1110481812012', 'José Luis dos Santos'),
-('1110481812033', 'Jonathas Moreira de Amorim Lopes'),
-('1110481812031', 'Leandro Colevati dos Santos')
-
-INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
-('1110481812034', '4203-010'),
-('1110481812022', '4203-010'),
-('1110481812012', '4203-010'),
-('1110481812033', '4203-010'),
-('1110481812031', '4203-010')
 
 -- PROCEDURE PARA INSERIR NOTA COM O PESO
+-- A
 create procedure sp_insereNota (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @codigo_avaliacao int, @nota decimal(4,2), @peso decimal(4,2))
 AS
 BEGIN
@@ -171,54 +138,20 @@ END
 
 
 -- PROCEDURE PARA INSERIR AS FALTAS DO ALUNO
+-- B
 create procedure sp_insereFaltas (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @dia Date, @presencas int)
 AS
 BEGIN
-	IF (@ra_aluno IS NULL OR @codigo_disciplina IS NULL OR @dia IS NULL)
-	BEGIN
-		RAISERROR('Valores Inválidos!',16,1)
-	END
-	ELSE
-	BEGIN
-		IF (@presencas IS NULL)
-		BEGIN
-			SET @presencas = 0
-		END
-		INSERT INTO faltas VALUES (@ra_aluno, @codigo_disciplina, @dia, @presencas)
-	END
+	INSERT INTO faltas VALUES (@ra_aluno, @codigo_disciplina, @dia, @presencas)
 END
 
-
-CREATE FUNCTION fn_listachamada(@cod_disc VARCHAR(8))
-RETURNS @tabela TABLE(
-ra_aluno		VARCHAR(13),
-nome_aluno		VARCHAR(100))
+-- PROCEDURE PARA ATUALIZAR A CHAMADA DE UM DIA
+create procedure sp_atualizaFaltas (@ra_aluno varchar(13), @codigo_disciplina varchar(8), @dia Date, @presencas int)
 AS
 BEGIN
-	DECLARE @pos INT
-	INSERT @tabela(ra_aluno, nome_aluno)
-		SELECT a.ra, a.nome FROM aluno a INNER JOIN faltas flt ON a.ra = flt.ra_aluno INNER JOIN disciplina disc ON flt.codigo_disciplina = disc.codigo WHERE disc.codigo = @cod_disc Order by a.nome
-	RETURN
+	UPDATE faltas SET presencas = @presencas 
+		WHERE codigo_disciplina = @codigo_disciplina AND dia = @dia AND ra_aluno = @ra_aluno
 END
-SELECT * FROM fn_listachamada('4203-010')
-
-INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
-('1110481812042', '4203-010'),
-('1110481812034', '4203-020'),
-('1110481812043', '4203-010'),
-('1110481812033', '4203-020')
-
----- G
-CREATE TRIGGER t_protegerDisciplinas ON disciplina
-FOR UPDATE, DELETE
-AS
-	DECLARE @contexto INT
-	SELECT @contexto = (SELECT COUNT(codigo) FROM deleted)
-	IF(@contexto <> 0)
-	BEGIN
-		ROLLBACK TRANSACTION
-		RAISERROR('Não é permitido alterar/deletar nenhum registro de Disciplinas', 16, 1)
-	END
 
 ---- UDF COM CURSOR - GERAR MEDIAS ----
 ---- C
@@ -315,6 +248,9 @@ BEGIN
 	RETURN
 END
 
+
+-- UDF COM CURSOR - GERAR FALTAS
+-- D
 CREATE FUNCTION fn_relatorioFaltas(@cod_disc VARCHAR(8))
 RETURNS @tabela TABLE
 (
@@ -438,7 +374,92 @@ BEGIN
 	UPDATE @tabela SET nome_disc = (SELECT nome + ' - ' + CASE WHEN turno = 'T' THEN 'TARDE' WHEN turno = 'N' THEN 'NOITE' END FROM disciplina WHERE codigo = @cod_disc)
 	RETURN
 END
-SELECT * FROM fn_relatorioFaltas('4203-010')
-SELECT * FROM faltas
---------- TESTES ------------
-SELECT * from fn_Notas('4208-010') order by Nome_Aluno
+
+---- PROTEGER DISCIPLINAS
+---- G
+CREATE TRIGGER t_protegerDisciplinas ON disciplina
+FOR UPDATE, DELETE
+AS
+	DECLARE @contexto INT
+	SELECT @contexto = (SELECT COUNT(codigo) FROM deleted)
+	IF(@contexto <> 0)
+	BEGIN
+		ROLLBACK TRANSACTION
+		RAISERROR('Não é permitido alterar/deletar nenhum registro de Disciplinas', 16, 1)
+	END
+
+--------- INSERTS PADRÕES ------------
+
+-- ALUNOS
+insert into aluno values
+('1110481812042', 'Fellipe Alves Andrade'),
+('1110481812043', 'Fernando George Pereira'),
+('1110481812044', 'Rafael Antonio Ferreira Borges'),
+('1110481812045', 'João Vitor Sardinha de Arruda'),
+('1110481812046', 'José Luis dos Santos'),
+('1110481812047', 'Jonathas Moreira de Amorim Lopes'),
+('1110481812048', 'Leandro Colevati dos Santos'),
+('1110481912001', 'Agostinho Carrara'),
+('1110481912002', 'Beiçola'),
+('1110481912003', 'Lineu Silva'),
+('1110481912004', 'Chaves'),
+('1110481912005', 'Seu Madruga'),
+('1110481912006', 'Dona Florinda'),
+('1110481912007', 'Senhor Barriga'),
+('1110481912008', 'Bebel'),
+('1110481912009', 'Tuco'),
+('1110481912010', 'Dona Nenê'),
+('1110481912011', 'Marilda'),
+('1110481912012', 'Mendonça'),
+('1110481822001', 'Quico'),
+('1110481822002', 'Chiquinha'),
+('1110481822003', 'Professor Girafales'),
+('1110481822004', 'Ñoño'),
+('1110481822005', 'Bruxa do 71 (nome social: Dona Clotilde)'),
+('1110481822006', 'Jaiminho, o Carteio')
+
+-- MATRICULAS
+INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
+('1110481812042', '4203-010'),
+('1110481812043', '4203-010'),
+('1110481812044', '4203-010'),
+('1110481812045', '4203-010'),
+('1110481812046', '4203-010'),
+('1110481812047', '4203-010'),
+('1110481812048', '4203-010'),
+('1110481812042', '5005-220'),
+('1110481812043', '5005-220'),
+('1110481812044', '5005-220'),
+('1110481812045', '5005-220'),
+('1110481812046', '5005-220'),
+('1110481812047', '5005-220'),
+('1110481812048', '5005-220'),
+('1110481912001', '4203-020'),
+('1110481912002', '4203-020'),
+('1110481912003', '4203-020'),
+('1110481912004', '4203-020'),
+('1110481912005', '4203-020'),
+('1110481912006', '4203-020'),
+('1110481912001', '4233-005'),
+('1110481912002', '4233-005'),
+('1110481912003', '4233-005'),
+('1110481912004', '4233-005'),
+('1110481912005', '4233-005'),
+('1110481912006', '4233-005'),
+('1110481912007', '4208-010'),
+('1110481912008', '4208-010'),
+('1110481912009', '4208-010'),
+('1110481912010', '4208-010'),
+('1110481912011', '4208-010'),
+('1110481912012', '4208-010'),
+('1110481912007', '4213-013'),
+('1110481912008', '4213-013'),
+('1110481912009', '4213-013'),
+('1110481912010', '4213-013'),
+('1110481912011', '4213-013'),
+('1110481822001', '4226-004'),
+('1110481822002', '4226-004'),
+('1110481822003', '4226-004'),
+('1110481822004', '4226-004'),
+('1110481822005', '4226-004'),
+('1110481822006', '4226-004')

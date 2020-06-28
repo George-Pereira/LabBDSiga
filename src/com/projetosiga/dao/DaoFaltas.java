@@ -30,6 +30,21 @@ public class DaoFaltas
 		state.execute();
 		state.close();
 	}
+	
+	public void atualizarFaltas(Faltas aluno) {
+		try {
+			String sql = "{CALL sp_atualizaFaltas(?,?,?,?)}";
+			CallableStatement state = connect.prepareCall(sql);
+			state.setString(1, aluno.getRa_aluno());
+			state.setString(2, aluno.getCodigo_disciplina());
+			state.setDate(3, aluno.getDia());
+			state.setInt(4, aluno.getPresencas());
+			state.execute();
+			state.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 	public List<Aluno_Faltas> construirRelatorio(String cod_disc) throws SQLException
 	{
 		String sql = "SELECT * FROM fn_relatorioFaltas(?)";

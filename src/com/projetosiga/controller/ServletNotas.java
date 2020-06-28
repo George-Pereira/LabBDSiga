@@ -49,4 +49,6 @@ public class ServletNotas extends HttpServlet {
 		response.sendRedirect("./registrarNotaS.jsp?disciplina="+nota.getCodigo_disciplina());
 	}
 	
+	
+	
 }
