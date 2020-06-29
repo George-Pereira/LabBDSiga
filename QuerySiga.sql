@@ -389,7 +389,7 @@ AS
 	END
 
 --------- INSERTS PADRÕES ------------
-
+USE db_SIGA
 -- ALUNOS
 insert into aluno values
 ('1110481812042', 'Fellipe Alves Andrade'),
@@ -418,6 +418,7 @@ insert into aluno values
 ('1110481822005', 'Bruxa do 71 (nome social: Dona Clotilde)'),
 ('1110481822006', 'Jaiminho, o Carteio')
 
+SELECT * FROM matricula
 -- MATRICULAS
 INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
 ('1110481812042', '4203-010'),
