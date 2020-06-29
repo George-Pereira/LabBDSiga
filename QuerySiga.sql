@@ -464,3 +464,47 @@ INSERT INTO matricula (ra_aluno, codigo_disciplina) VALUES
 ('1110481822004', '4226-004'),
 ('1110481822005', '4226-004'),
 ('1110481822006', '4226-004')
+
+
+-- EXECUTAR A QUERY DINAMICA PARA INSERIR ALGUMAS CHAMADAS,
+-- POIS A TABELA EM TELA SÓ É POSSÍVEL SER GERADA SE HOUVER 20 CHAMADAS REALIZADAS
+-- INSERTS FEITOS PARA AS MATERIAS DE AOC - TARDE E MÉTODOS PARA PRODUÇÃO DE CONHECIMENTO - MANHÃ
+
+DECLARE @cont int,
+		@contA int,
+		@contB int,
+		@ra varchar(20),
+		@data varchar(20)
+SET @contA = 1
+SET @contB = 0
+WHILE (@contA < 21)
+BEGIN
+	SET @cont = 2
+	IF (@contA < 10)
+	BEGIN
+		SET @data = CONCAT('2020-06-', @contA)
+	END
+	ELSE
+	BEGIN
+		SET @data = CONCAT('2020-06-', @contA)
+	END
+	WHILE (@cont <= 8)
+	BEGIN
+		IF (@contB > 4) 
+		BEGIN
+			SET @contB = 0
+		END
+		SET @ra = CONCAT('111048181204', @cont)
+		exec sp_insereFaltas @ra, '4203-010', @data, @contB
+		exec sp_insereFaltas @ra, '5005-220', @data, @contB
+		SET @contB = @contB + 1
+		SET @cont = @cont + 1
+	END
+	SET @contA = @contA + 1
+END
+
+
+
+select * from faltas
+delete faltas
+
